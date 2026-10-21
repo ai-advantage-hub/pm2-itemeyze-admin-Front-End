@@ -1,0 +1,244 @@
+<div class="container mt-2">
+  <div class="wrapper">
+    <div class="row-pipe-1">
+      <div class="col-pipe-1">
+        <div class="heading">
+          <img routerLink="../../manage-users" class="heading-image" alt=""
+            src="../../../assets/icons/arrow-back-icon.svg" />
+        </div>
+        <div class="main-heading">View User Profile</div>
+        <div class="offset-4 header-buttons">
+          <button class="button-edit"
+            (click)="openEditModal(userData?.full_name, userData?.company_names[0], userData?.id)">Edit</button>
+        </div>
+        <div class="header-buttons">
+          <button *ngIf="role == 1" class="button-1" (click)="openDeactivateUserModal(2)">
+            Deactivate User
+          </button>
+          <button *ngIf="role == 2" class="button-2" (click)="openDeactivateUserModal(1)">
+            Activate User
+          </button>
+        </div>
+      </div>
+      <div class="col-pipe-2">
+        <div class="personal-list">
+          <div class="list-heading">
+            <h3>Personal Details</h3>
+          </div>
+          <div class="listing">
+            <div class="user-img">
+              <img alt="" [src]="imagePath(userData?.profile_pic)" />
+            </div>
+            <!-- <div class="user-image">
+              <img alt="" [src]="imagePath(userData?.profile_pic)" />
+            </div> -->
+            <ul class="list-key">
+              <li>Name of User:</li>
+              <li>Email Address:</li>
+              <li>Company:</li>
+              <li style="margin-bottom: 40px">Date of Joining:</li>
+              <!-- <li style="margin-bottom: 40px">Modules Accessible:</li> -->
+              <a (click)="openDeleteUserModal(id)">Delete User</a>
+            </ul>
+            <ul class="list-values">
+              <li>{{ userData?.full_name ? userData?.full_name : "NA" }}</li>
+              <li>{{ userData?.email ? userData?.email : "NA" }}</li>
+              <li *ngFor="let company of userData?.company_names">
+                {{ company}}
+              </li>
+              <li>
+                {{
+                userData?.created_at
+                ? (userData?.created_at | date : "dd MMM yyyy")
+                : "NA"
+                }}
+              </li>
+              <!-- <li *ngIf="userData?.modules_accessible">
+                <span *ngFor="let items of userData?.modules_accessible">{{
+                  items
+                }}</span>
+              </li> -->
+              <!-- <li *ngIf="userData?.modules_accessible == null">NA</li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row-pipe-2">
+  <div class="table-top">
+    <div class="table-heading">
+      <h3>Projects</h3>
+    </div>
+    <div class="view-all-link">
+      <a *ngIf="items.length > 5" (click)="viewAllPage()" style="cursor: pointer">View All</a>
+    </div>
+  </div>
+  <table aria-describedby="">
+    <tr class="table-header">
+      <!-- <th style="text-align: left; width: 10%">S.No</th> -->
+      <th scope="col" style="text-align: left; width: 30%">Project Name</th>
+      <th scope="col" style="width: 20%">Date Created</th>
+      <th scope="col" style="width: 30%">Site Name</th>
+      <th scope="col" style="width: 20%" *ngIf="!showView">Action</th>
+    </tr>
+    <tr class="table-row" *ngFor="
+        let i of items
+          | paginate : { itemsPerPage: itemsPerPage, currentPage: currentPage };
+        let s = index
+      ">
+      <!-- <td style="text-align: left;padding-left: 45px;">{{ s + 1 }}</td> -->
+      <td style="text-align: left">
+        {{ i?.project_name ? i?.project_name : "NA" }}
+      </td>
+      <td>
+        {{ i?.created_at ? (i?.created_at | date : "dd MMM yyyy") : "NA" }}
+      </td>
+      <td>
+        {{ i?.site_id__name ? i?.site_id__name : "NA" }}
+      </td>
+      <td *ngIf="!showView">
+        <a class="view-link" style="color: #034c9e" (click)="viewProjectDetails(i?.id)">View</a>
+        {{ i.view }}
+      </td>
+    </tr>
+  </table>
+  <div class="noData mt-4 mb-4" style="text-align: center" *ngIf="items?.length == 0">
+    <p>No Data Available</p>
+  </div>
+  <!-- <div class="text-right" *ngIf="items?.length > 0">
+    <p class="page-text">
+      Showing {{ getShownEntriesRange() }} of {{ items.length }} entries
+    </p>
+    <pagination-controls
+      (pageChange)="currentPage = $event"
+    ></pagination-controls>
+  </div> -->
+</div>
+<div class="row-pipe-3" *ngIf="items?.length > 0">
+  <div class="col-pipe-3">
+    <div class="graph-heading">Project Stats</div>
+  </div>
+  <div class="col-pipe-4">
+    <form [formGroup]="countForm" class="dropdown">
+      <select formControlName="project" class="month" name="project" (ngModelChange)="graph()">
+        <option value="" disabled>Project</option>
+        <option *ngFor="let project of items" [value]="project.id">
+          {{ project.project_name }}
+        </option>
+      </select>
+      <select formControlName="view" class="project" name="view" (ngModelChange)="onchangeValue($event)">
+        <option [value]="1">Year View</option>
+        <option [value]="2">Month View</option>
+      </select>
+      <select formControlName="year" class="project" name="year" (ngModelChange)="graph()">
+        <!-- <option value="" disabled>year</option> -->
+        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+      </select>
+      <select *ngIf="show" formControlName="month" class="project" name="month" (ngModelChange)="graph()">
+        <!-- <option value="" disabled>Month View</option> -->
+        <option *ngFor="let month of months" [value]="month.value">
+          {{ month.name }}
+        </option>
+      </select>
+    </form>
+    <a class="reset-link" (click)="resetFilter()">Reset Filter</a>
+  </div>
+</div>
+<div class="row-pipe-3 mb-0" [hidden]="items?.length == 0">
+  <canvas id="myChart"></canvas>
+</div>
+<div *ngIf="items?.length > 0" class="row-pipe-3" style="display: flex; justify-content: center; align-items: center">
+  <p *ngIf="!show" style="color: #555555; font-size: 15px">
+    Months of the Year
+  </p>
+  <p *ngIf="show" style="color: #555555; font-size: 15px">
+    {{ monthName }}'{{ yearValue | slice : 2 : 4 }}
+  </p>
+</div>
+
+<!-- Deactivate User Modal starts -->
+<ng-template #deactivateUserModal let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content deactivate-modal">
+      <form class="">
+        <div class="modal-title" *ngIf="role == 1">Deactivate User</div>
+        <div class="modal-title" *ngIf="role == 2">Activate User</div>
+        <div class="modal-text">
+          <h3 *ngIf="role == 1">
+            Are you sure you want to deactivate the user?
+          </h3>
+          <h3 *ngIf="role == 2">Are you sure you want to activate the user?</h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="hideDeactivateUserModal()">
+            Cancel
+          </button>
+          <button type="submit" *ngIf="role == 1" class="btn btn-deactivate" (click)="statusChange(2)">
+            Deactivate User
+          </button>
+          <button type="submit" *ngIf="role == 2" class="btn btn-deactivate" (click)="statusChange(1)">
+            Activate User
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Deactivate User Modal ends -->
+
+<!-- Delete User Modal starts -->
+<ng-template #deleteUserModal let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content delete-modal">
+      <form class="" (ngSubmit)="deleteUser()">
+        <div class="modal-title">Delete User</div>
+        <div class="modal-text">
+          <h3>Are you sure you want to delete the user?</h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="hideDeleteUserModal()">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-delete">Delete User</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Delete User Modal ends -->
+
+  <!-- Edit Modal starts -->
+  <ng-template #editModal let-modal>
+    <div class="modal-body text-center">
+      <div class="modal-content edit-modal">
+        <form [formGroup]="editForm" class="project-info">
+          <div class="modal-title">Edit User</div>
+          <div class="username-title">
+            <label class="input-label">User Name</label>
+            <input readonly class="enter" type="text" placeholder="Enter Text Here" style="background-color: #CECECE;"
+              formControlName="user_name" />
+          </div>
+          <div class="assign-to">
+            <label class="input-label">Company Name</label>
+
+            <ng-select formControlName="company_name">
+              <ng-option *ngFor="let i of companyArr" [value]="i.name">{{i.name}}</ng-option>
+            </ng-select>
+            <div class="val-error" *ngIf="editForm.get('company_name').hasError('companyNotFound')">
+              Company Name doesn't exist.
+            </div>
+            <img *ngIf="editForm.get('company_name').hasError('companyNotFound')" class="val-image" alt=""
+              src="../../../assets/icons/validation-triangle.svg">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="hide()">Cancel</button>
+            <button type="submit" class="btn btn-edit" (click)="UserEdit()">Edit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Edit Modal ends -->

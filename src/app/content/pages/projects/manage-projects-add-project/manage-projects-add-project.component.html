@@ -1,0 +1,84 @@
+<div class="container">
+    <div class="container-header">
+        <div class="header-image">
+            <img routerLink="../../manage-projects" alt="" src="../../../assets/icons/arrow-back-icon.svg">
+        </div>
+        <div class="header-text">
+            <h3>Add New Project</h3>
+        </div>
+    </div>
+    <form [formGroup]="createNewProjectForm" (ngSubmit)="createNewProject()" class="project-info">
+        <div class="project-title">
+            <label>Project Title
+                <span class="necessary">*</span>
+            </label>
+            <input type="text" formControlName="project_name" required placeholder="Enter Text Here" >
+            <span
+                *ngIf="createNewProjectForm.get('project_name').errors?.required && createNewProjectForm.get('project_name').touched"
+                class="val-error">Please enter project title</span>
+            <img *ngIf="createNewProjectForm.get('project_name').errors?.required && createNewProjectForm.get('project_name').touched"
+                class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+        </div>
+        <div class="project-number">
+            <label>Project Number
+                <span class="necessary">*</span>
+            </label>
+            <input type="text" (input)="onInputChange($event)" formControlName="project_number"  required
+                placeholder="Enter Text Here">
+            <span
+                *ngIf="createNewProjectForm.get('project_number').errors?.required && createNewProjectForm.get('project_number').touched"
+                class="val-error">Please enter project number</span>
+            <img *ngIf="createNewProjectForm.get('project_number').errors?.required && createNewProjectForm.get('project_number').touched"
+                class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+        </div>
+        <div class="assign-to">
+            <label>Company Name</label>
+            <ng-select  formControlName = "company_name" placeholder = "Enter Company Name" (change)="emailValue($event)">
+                <!-- <ng-option  selected disabled>Enter Company Name</ng-option> -->
+                <ng-option *ngFor="let i of companyArr" [value]="i">{{i.name}}</ng-option>
+             </ng-select>
+            <!-- <input type = "text"[(ngModel)]="searchCompany" (keyup)="onSearch()"  formControlName = "company_name" placeholder = "Enter Company Name">
+            <ul class="list-group">
+                <li *ngFor="let data of companyArray" (click)="selectName(data?.name, data?.id)" class="list-group-item list-group-item-action">{{data.name}}</li>
+            </ul> -->
+            <div class="val-error" *ngIf="createNewProjectForm.get('company_name').hasError('companyNotFound')">
+               Company Name doesn't exist.
+            </div>
+            <img *ngIf="createNewProjectForm.get('company_name').hasError('companyNotFound')" class="val-image" alt=""
+                src="../../../assets/icons/validation-triangle.svg">
+        </div>
+        <div class="assign-to">
+            <label>Assign To</label>
+            <!-- <input [(ngModel)]="searchText" (keyup)="search()" type="email" formControlName="assigned_to" required
+                placeholder="Enter Email Address"> -->
+                <ng-select  formControlName="assigned_to" placeholder = "Enter Email" (change)="selectData($event)">
+                    <ng-option *ngFor="let i of data" [value]="i">{{i.user__email }}</ng-option>
+                 </ng-select>
+            <div class="val-error" *ngIf="createNewProjectForm.get('assigned_to').hasError('emailNotFound')">
+                Email doesn't exist. Enter a different email.
+            </div>
+            <img *ngIf="createNewProjectForm.get('assigned_to').hasError('emailNotFound')" class="val-image" alt=""
+                src="../../../assets/icons/validation-triangle.svg">
+            <!-- <div class="add-button">
+                <img alt="" src="../../../../assets/icons/add-icon.svg">
+                <button class="btn btn-add">Add</button>
+            </div> -->
+            <!-- <ul class="list-group">
+                <li *ngFor="let data of data" (click)="selectData(data?.user__email)"
+                    class="list-group-item list-group-item-action">{{data.user__email}}</li>
+            </ul> -->
+            <div class="email-select">
+                <span *ngFor="let chip of selectedEmail" class="badge text-bg-primary chip">{{chip}}
+                    <span (click)="removeEmail(chip)" class="material-icons chip-close">close</span>
+                </span>
+            </div>
+        </div>
+        <div class="assign-to">
+            <label>Site Name</label>
+            <input type="text" formControlName="site_name" placeholder="Enter Site Name" maxlength="30">
+        </div>
+        <div class="save-button">
+            <button type="submit" class="btn btn-primary">Save Details</button>
+        </div>
+    </form>
+</div>

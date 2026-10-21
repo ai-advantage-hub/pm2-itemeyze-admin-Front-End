@@ -1,0 +1,57 @@
+<div class="container mt-2">
+  <div class="wrapper">
+    <div class="row-pipe-1">
+      <div class="col-pipe-1">
+        <div class="main-heading">Hello {{data?.full_name}},</div>
+        <!-- <p class="sub-text">Use this space for random lines</p> -->
+      </div>
+      <div class="col-pipe-2">
+        <form [formGroup]="countForm" class="dropdown">
+            <select formControlName="month" class="month" (ngModelChange)="dashboardData()">
+              <option value="" disabled>Month</option>
+                <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
+            </select>
+            <select formControlName="year" class="year" (ngModelChange)="dashboardData()">
+                <option value="" disabled>Year</option>
+                <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+            </select>
+        </form>
+        <a class="reset-link" (click)="reset()">Reset Filter</a>
+      </div>
+    </div>
+    <div class="row-pipe-2">
+      <div class="col-pipe-3">
+        <div class="box">
+          <img alt="" src="../../../../assets/icons/users-icon.svg" style="position: relative;right: 8%;">
+          <div class="box-text-1">
+            <h3>{{ countData?.total_users }}</h3>
+            <p>Total Users</p>
+          </div>
+        </div>
+        <div class="box">
+          <img alt="" src="../../../../assets/icons/projects-icon.svg" style="position: relative;right: 3%;">
+          <div class="box-text-2">
+            <h3>{{ countData?.total_projects }}</h3>
+            <p>Total Projects</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-pipe-4">
+        <div class="box">
+          <img alt="" src="../../../../assets/icons/sub-admin-icon.svg">
+          <div class="box-text-3">
+            <h3>{{ countData?.total_subadmins }}</h3>
+            <p>Total Sub Admins</p>
+          </div>
+        </div>
+        <div class="box">
+          <img alt="" src="../../../../assets/icons/companies-icon.svg">
+          <div class="box-text-4">
+            <h3>{{ countData?.total_companies }}</h3>
+            <p>Total Companies</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

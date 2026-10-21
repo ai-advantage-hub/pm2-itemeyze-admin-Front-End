@@ -1,0 +1,56 @@
+<div class="container mt-2">
+    <div class="wrapper">
+      <div class="row-pipe-1">
+        <div class="col-pipe-1">
+          <div class="heading">
+            <img
+            (click)="goBack()"
+            class="heading-image"
+            alt=""
+            src="../../../assets/icons/arrow-back-icon.svg"
+          />
+            <div class="main-heading">View All Projects</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row-pipe-2">
+    <table aria-describedby="">
+      <tr class="table-header">
+        <!-- <th style="text-align: left;width: 10%;">S.No.</th> -->
+        <th scope="col" style="text-align: left;width: 34%;">Project Name</th>
+        <th scope="col" style="width: 33%;">Date Created</th>
+        <th scope="col" style="width: 33%;">Site Name</th>
+        <th scope="col" style="width: 33%;" *ngIf="!show">Action</th>
+      </tr>
+      <tr
+        class="table-row"
+        *ngFor="
+          let i of items
+            | paginate : { itemsPerPage: itemsPerPage, currentPage: currentPage };
+            let s = index"
+      >
+        <!-- <td style="text-align: left;padding-left: 45px;">{{ s + 1 }}</td> -->
+        <td style="text-align: left">{{ i?.project_name ? i?.project_name : "NA" }}</td>
+        <td>{{ i?.created_at ? (i?.created_at | date : 'dd MMM yyyy')   : "NA" }}</td>
+        <td>{{ i?.site_id__name ? i?.site_id__name : "NA" }}</td>
+        <td *ngIf="!show">
+          <a class="view-link" (click)="viewProjectDetails(i?.id)" >View</a>
+        </td>
+      </tr>
+    </table>
+    <div *ngIf="items.length <= 0" class="nodata">
+      <p>No Data Found</p>
+    </div>
+    <div *ngIf="items.length > 0" class="text-right">
+      <p class="page-text">
+        Showing {{ getShownEntriesRange() }} of {{ items.length }} entries
+      </p>
+      <pagination-controls
+        (pageChange)="currentPage = $event"
+      ></pagination-controls>
+    </div>
+  </div>
+  
+

@@ -1,0 +1,89 @@
+<div class="container mt-2">
+  <div class="wrapper">
+    <div class="row-pipe-1">
+      <div class="col-pipe-1">
+        <div class="heading">
+          <img (click)="back()" class="heading-image" alt=""
+            src="../../../assets/icons/arrow-back-icon.svg" />
+          <div class="main-heading">View Manufacturer</div>
+        </div>
+        <button class="button-2" (click)="openAddCompanyModel()">
+          Edit
+        </button>
+      </div>
+    </div>
+    <div class="col-pipe-2">
+      <div class="personal-list">
+        <div class="list-heading">
+          <h3>Manufacturer Details</h3>
+        </div>
+        <div class="listing">
+          <ul class="list-key">
+            <li>Manufacturer Name:</li>
+            <li>User:</li>
+            <li>Email Address:</li>
+            <li>Date Created:</li>
+          </ul>
+          <ul class="list-values">
+            <li>{{data?.name ? data?.name : "NA"}}</li>
+            <li>{{data?.users__full_name ? data?.users__full_name : "NA"}}</li>
+            <li>{{data?.users__email ? data?.users__email : "NA"}}</li>
+            <li>{{ data?.created_at ? (data?.created_at | date : 'dd-MMM-yyyy') : "NA"}}</li>
+          </ul>
+        </div>
+        <div class="delete">
+          <a (click)="opendeleteCompanyModel() ">Delete Manufacturer</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #addNewManufacturerModal let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content add-modal">
+      <form [formGroup]="addManufacturerForm"  class="">
+        <div class="modal-title">Edit Manufacturer Name</div>
+        <div class="input-form">
+          <label class="input-label">Manufacturer Name</label>
+          <input
+            class="enter"
+            type="text"
+            placeholder="Enter Text Here"
+            formControlName="name"
+          />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="hideAddModal()">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-save"   (click)="editData()">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #deleteManufracrtureModal let-modal style="left: 20%;">
+  <div class="modal-body text-center">
+    <div class="modal-content delete-modal">
+      <form  class="">
+        <div class="modal-title">Delete Manufacturer</div>
+        <div class="modal-text">
+          <h3 style="text-align: left;">Are you sure you want to delete the Manufacturer?</h3>
+          <p style="text-align: left;">Note : The manufacturer will get permanently deleted from the Database</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="hideDeleteModal()"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-delete" (click)="deleteManufacturer()">Delete Manufacturer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,128 @@
+/* Styling for logo image starts */
+.logo-img img {
+    position: absolute;
+    top: 5.8%;
+    left: 1%;
+    width: 40%;
+    height: 10.35%;
+}
+
+.logo-text img {
+    top: 6.5%;
+    left: 31.2%;
+    position: absolute;
+    width: 29.5%;
+    height: 9%;
+}
+/* Styling for logo image ends */
+
+/* Styling for sidebar starts */
+.sidebar-list {
+    position: absolute;
+    top: 25%;
+    width: 100%;
+}
+
+/* Styling for sidebar menu list starts */
+a {
+    padding-left: 40px;
+    padding-top: 15px;
+    margin-bottom: 20px;
+}
+
+a.selected {
+    background-color: #8FC36A !important;
+    transition: none !important;
+    box-shadow: none;
+    transform: none;
+}
+
+.mat-ripple-element {
+    background: none;
+}
+
+a:hover {
+    transition: 0;
+}
+
+/* Styling for sidebar menu list icon starts */
+img {
+    position: absolute;
+    margin-right: 1rem;
+}
+/* Styling for sidebar menu list icon ends */
+
+/* Styling for sidebar menu list heading starts */
+h3 {
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: 14px;
+    line-height: 19.5px;
+    padding-left: 35px;
+    margin-bottom: 0px;
+}
+/* Styling for sidebar menu list heading ends */
+
+/* Styling for sidebar menu list ends */
+
+/* Styling for sidebar ends */
+
+
+/* Media Query starts */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    .logo-img img {
+        position: absolute;
+        top: 0%;
+        left: 3.5%;
+        width: 15%;
+        height: 5%;
+    }
+    .logo-text img {
+        top: 0%;
+        left: 20.5%;
+        position: absolute;
+        width: 26%;
+        height: 4.5%;
+    }
+    .sidebar-list {
+        position: absolute;
+        top: 10%;
+        width: 100%;
+    }
+    a {
+        padding-left: 20px;
+        padding-top: 15px;
+        margin-bottom: 20px;
+    }
+    a:focus {
+        background-color: #8FC36A;
+        transition: none !important;
+        box-shadow: none;
+        transform: none;
+    }
+    .mat-ripple-element {
+        background: none;
+    }
+    a:hover {
+        background-color: none;
+    }
+    img {
+        position: absolute;
+        margin-right: 0;
+        width: 15px;
+    }
+    h3 {
+        color: #ffffff;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 200;
+        font-size: 13px;
+        line-height: 19.5px;
+        padding-left: 25px;
+        margin-bottom: 0px;
+    }
+  }
+  /* Media Query ends */

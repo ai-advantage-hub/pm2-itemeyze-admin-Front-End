@@ -1,0 +1,45 @@
+<div class="container">
+    <form [formGroup]="editProfileForm">
+        <div class="edit-form">
+            <div class="contaienr-header">
+                <div class="header-image" (click)="goToBack()">
+                    <img alt="" src="../../../assets/icons/arrow-back-icon.svg">
+                </div>
+                <div class="header-text">
+                    <h3>Edit Profile</h3>
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="user-image">
+                    <input type="file" hidden #file (change)="selectFile($event.target.files)"
+                        onclick="this.value=null;" accept="image/x-png, image/jpg, image/jpeg" />
+                    <img class="img-1" alt="" [src] = "imageUrl(editProfileForm.controls.image_upload.value ) " style="border-radius: 50%;">
+                    <img class="img-2" alt="" src="../../../assets/icons/edit-image-icon.svg" (click)="file.click()">
+                </div>
+                <div class="user-name">
+                    <img class="user-icon" alt="" src="../../../assets/icons/user-icon.svg">
+                    <input type="text" formControlName="full_name" placeholder="Name" required />
+                    <span *ngIf="editProfileForm.get('full_name').errors?.required && editProfileForm.get('full_name').touched"
+                        class="val-error">Please enter your name</span>
+                    <img *ngIf="editProfileForm.get('full_name').errors?.required && editProfileForm.get('full_name').touched"
+                        class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+                </div>
+                <div class="user-email">
+                    <img class="mail-icon" alt="" src="../../../assets/icons/mailicon.svg">
+                    <input type="email" formControlName="email" placeholder="Email Address" required />
+                    <span *ngIf="editProfileForm.get('email').hasError('pattern') && editProfileForm.get('email').touched"
+                        class="val-error">Please enter valid email address</span>
+                    <img *ngIf="editProfileForm.get('email').hasError('pattern') && editProfileForm.get('email').touched"
+                        class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+                    <span *ngIf="editProfileForm.get('email').errors?.required && editProfileForm.get('email').touched"
+                        class="val-error">Please enter your email address</span>
+                    <img *ngIf="editProfileForm.get('email').errors?.required && editProfileForm.get('email').touched"
+                        class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+                </div>
+            </div>
+            <div class="update-button">
+                <button class="btn btn-primary"  (click)="upadateProfile()">Update Profile</button>
+            </div>
+        </div>
+    </form>
+</div>

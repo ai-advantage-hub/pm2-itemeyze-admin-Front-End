@@ -1,0 +1,509 @@
+.container {
+    width: 100%;
+}
+
+.wrapper {
+    height: 100%;
+}
+
+.row-pipe-1 {
+    padding-left: 20px;
+    padding-top: 25px;
+}
+
+.col-pipe-1 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.col-pipe-1 .heading {
+    display: flex;
+}
+
+.col-pipe-1 .heading-image {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.col-pipe-1 .main-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #444444;
+}
+
+.header-buttons {
+    display: flex;
+}
+
+.row-pipe-2 {
+    margin-top: 30px;
+    height: 75%;
+}
+
+.col-pipe-2 {
+    width: 98%;
+    height: 278px;
+    margin-top: 20px;
+    display: flex;
+    border: 1px solid #CACACA;
+    border-radius: 10px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding-left: 32px;
+    text-align: center;
+    padding-right: 32px;
+}
+
+th {
+    background-color: #F1F1F1;
+    font-size: 14px;
+    font-weight: 400;
+    color: #444444;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Styling for the table header */
+.table-header {
+    height: 47px;
+}
+
+/* Styling for table rows */
+.table-row {
+    height: 52px;
+    border-bottom: 1px solid #CACACA;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+}
+
+a.approve-link {
+    padding: 0 20px 0 20px;
+    font-size: 14px;
+    color: #8FC36A;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+}
+
+  a.deny-link {
+    padding: 0 20px 0 20px;
+    font-size: 14px;
+    color: #E72E00;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+  }
+
+  .text-right {
+    height: 20%;
+    margin-top: 25px;
+    text-align: right;
+    display: flex;
+    justify-content: right;
+    padding-right: 20px;
+  }
+
+  .page-text {
+    padding-top: 3px;
+  }
+
+  ::ng-deep .ngx-pagination .current {
+    background-color: #8FC36A !important;
+    border-radius: 2px;
+  }
+
+  ::ng-deep .ngx-pagination a {
+    text-decoration: none;
+    color: #444444 !important;
+  }
+
+  .necessary {
+    color: #E72E00;
+  }
+
+  /* Styling for approve project request modal starts */
+    /* Styling for modals starts */
+    .approve-modal {
+      width: 744px;
+      min-height: 510px;
+    }
+
+    .deny-modal {
+      width: 520px;
+      height: 246px;
+    }
+    
+      .project-title {
+        padding: 50px 60px 10px 60px;
+        display: grid;
+        justify-items: start;
+      }
+
+      .project-number {
+        padding: 0px 60px 10px 60px;
+        display: grid;
+        justify-items: start;
+      }
+
+      .project-number input[type="number"]::-webkit-outer-spin-button,
+      .project-number input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        appearance: none;
+        margin: 0;
+      }
+
+      .assign-to {
+        padding: 0px 60px 10px 60px;
+        display: grid;
+        justify-items: start;
+        position: relative;
+        // margin-bottom: 30px;
+      }
+    
+      .input-label {
+        font-size: 16px;
+        font-weight: 500;
+        font-family: 'Montserrat', sans-serif;
+        color: #444444;
+        padding-bottom: 10px;
+      }
+    
+      .enter {
+        width: 596px;
+        height: 63px;
+        border: none !important;
+        border-radius: 10px;
+        outline: none;
+        background-color: #F1F1F1;
+        padding-left: 30px;
+        font-size: 14px;
+        font-weight: 400;
+        font-family: 'Montserrat', sans-serif;
+        color: #444444;
+      }
+    
+      ::ng-deep .modal-footer {
+        border-top: none;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+      }
+    
+      .btn.btn-danger {
+        width: 136px;
+        height: 45px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        border-color: #444444 !important;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: 'Montserrat', sans-serif,;
+        color: #444444;
+      }
+    
+      .btn.btn-approve {
+        width: 150px;
+        height: 45px;
+        background-color: #8FC36A;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: 'Montserrat', sans-serif,;
+        color: #ffffff;
+      }
+      // Styling for modal ends
+
+      /* Styling for deny modal starts */
+    .deny-modal {
+      height: 246px;
+      width: 519px;
+    }
+  
+    ::ng-deep .modal-footer {
+      border-top: none;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+  
+    .btn.btn-danger {
+      width: 136px;
+      height: 45px;
+      outline: none;
+      background-color: #ffffff;
+      border-radius: 10px;
+      border-color: #444444 !important;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif,;
+      color: #444444;
+    }
+  
+    .btn.btn-delete {
+      width: 218px;
+      height: 45px;
+      background-color: #E72E00;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif,;
+      color: #ffffff;
+    }
+  
+    .modal-text {
+      padding: 20px 20px 20px 20px;
+    }
+  
+    .modal-text h3 {
+      font-size: 18px;
+      font-weight: 500;
+      font-family: 'Montserrat', sans-serif;
+      color: #444444;
+    }
+    /* Styling for deny modal ends */
+
+.val-error {
+    display: flex;
+    left: 4%;
+    position: inherit;
+    width: fit-content;
+    top: 75%;
+    background-color: #E72E00;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 1px 10px 1px 10px;
+    height: auto;
+    text-align: initial;
+    font-weight: 600;
+    margin-top: 3px;
+}
+
+.val-image {
+    position: absolute;
+    margin-top: 92px;
+    padding-left: 19px;
+}
+
+input.ng-invalid.ng-touched {
+    border: 2px solid #E72E00 !important;
+}
+/* Styling for validation ends */
+
+ @media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    .col-pipe-1 .main-heading {
+        font-size: 16px;
+    }
+    th,td {
+        font-size: 10px;
+    }
+    a.approve-link {
+      font-size: 10px;
+      padding: 10px;
+    }
+    a.deny-link {
+      font-size: 10px;
+      padding: 10px;
+    }
+    ::ng-deep .modal-content {
+      width: 500px;
+      height: 400px;
+    }
+    .project-title {
+      padding-top: 30px;
+    }
+    .input-label {
+      font-size: 12px;
+      padding-bottom: 0px;
+    }
+    .enter {
+      width: 100%;
+      height: 40px;
+      font-size: 12px;
+    }
+    .btn.btn-danger {
+      width: 100px;
+      height: 30px;
+      font-size: 12px;
+    }
+    .btn.btn-approve {
+      width: 110px;
+      height: 30px;
+      font-size: 12px;
+    }
+    .val-error {
+      width: 45%;
+      font-size: 10px;
+    }
+    .val-image {
+      margin-top: 60px;
+    }
+  }
+
+
+// .list-group {
+//   position: initial;
+//   width: 596px;
+//   margin-top: 5px;
+// }
+
+.list-group {
+  top: 90px;
+  left: 60px;
+  position: absolute;
+  width: 596px;
+  margin-top: 5px;
+  z-index: 1;
+  // height: 200px;
+  overflow-y: auto;
+  // border: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color);
+}
+
+.email-select {
+  text-align: left;
+  width: 596px;
+}
+
+.list-group-item-action {
+  cursor: pointer;
+  text-align: left;
+}
+
+.list-group-item-action:hover {
+  background-color: #8FC36A;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.text-bg-primary {
+  background-color: #F1F1F1 !important;
+  width: fit-content;
+  margin-top: 15px;
+  text-align: left;
+  padding: 7px 10px 7px 10px;
+  color: #444444 !important;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 0.5rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.chip-close {
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+.site-name {
+  margin-bottom: 30px;
+  display: inline-grid;
+}
+
+.site-name input {
+  width: 596px;
+  height: 63px;
+  border: none;
+  border-radius: 10px;
+  background-color: #F1F1F1;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  color: #444444;
+  padding-left: 20px;
+  outline: none;
+}
+
+.val-error {
+  display: flex;
+  top: 0;
+  left: 0%;
+  // left: 4%;
+  position: inherit;
+  width: fit-content;
+  // top: 75%;
+  background-color: #E72E00;
+  color: #ffffff;
+  font-family: Montserrat, sans-serif;
+  font-size: 11px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding: 1px 10px 1px 10px;
+  height: auto;
+  text-align: initial;
+  font-weight: 600;
+  margin-top: 3px;
+}
+
+.val-image {
+  position: absolute;
+  margin-top: 92px; //87
+  padding-left: 68px; //19
+}
+// .assign-to {
+//   display: inline-grid;
+//   margin-bottom: 30px;
+//   position: relative;
+// }
+.site-name {
+  margin-bottom: 30px;
+  display: inline-grid;
+}
+
+.assign-to input , .site-name input{
+  width: 596px;
+  height: 63px;
+  border: none !important;
+  border-radius: 10px;
+  background-color: #F1F1F1;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  color: #444444;
+  padding-left: 20px;
+  outline: none;
+}
+
+// ::ng-deep .ng-select.ng-select-single .ng-select-container {
+//   height: 60px;
+//   width: 596px;
+//   border: none !important;
+//   border-radius: 10px;
+//   outline: none;
+//   background-color: #f1f1f1;
+//   padding-left: 10px;
+//   font-size: 14px;
+//   font-weight: 400;
+//   font-family: "Montserrat", sans-serif;
+//   color: #444444;
+// }
+// ::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+//     top: 35%;
+//     padding-left: 25px;
+// }
+
+::ng-deep .modal-footer {
+  border-top: none;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}

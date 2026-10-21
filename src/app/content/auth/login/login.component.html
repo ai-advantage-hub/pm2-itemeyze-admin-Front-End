@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row-1">
+    <div class="col-logo">
+      <div class="logo-img">
+        <img alt="" src="../../assets/logos/pm2logo.svg" />
+      </div>
+      <div class="logo-text">
+        <img alt="" src="../../assets/logos/logotext.svg" />
+      </div>
+    </div>
+    <form [formGroup]="loginForm" class="ln-form" >
+      <div class="form-heading">
+        <h1 class="ln-text">Login</h1>
+      </div>
+      <div class="form-fields">
+        <div class="email-field">
+          <img class="email-icon" alt="" src="../../../../assets/icons/mailicon.svg">
+          <input type="email" formControlName="email" placeholder="Email Address" required />
+          <span *ngIf="loginForm.get('email').hasError('pattern') && loginForm.get('email').touched"
+            class="val-error">Please enter valid email address</span>
+            <img *ngIf="loginForm.get('email').hasError('pattern') && loginForm.get('email').touched" class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+          <span *ngIf="loginForm.get('email').errors?.required && loginForm.get('email').touched"
+            class="val-error">Please enter your email address</span>
+            <img *ngIf="loginForm.get('email').errors?.required && loginForm.get('email').touched" class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+        </div>
+        <div class="password-field">
+          <img class="lock-icon" alt="" src="../../../../assets/icons/lock-icon.svg">
+          <input type="{{ showPassword ? 'text' : 'password' }}" formControlName="password" placeholder="Password"
+            required />
+          <span *ngIf="loginForm.controls['password'].hasError('required') && loginForm.get('password').touched"
+            class="val-error">Please enter your password</span>
+            <img *ngIf="loginForm.controls['password'].hasError('required') && loginForm.get('password').touched" class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+          <img class="password-icon" *ngIf="!showPassword" src="../../../../assets/icons/show-password-eye-icon.svg"
+            alt="Show Password" (click)="togglePasswordVisibility()" />
+          <img class="password-icon" *ngIf="showPassword" src="../../../../assets/icons/hide-password-eye-icon.svg"
+            alt="Hide Password" (click)="togglePasswordVisibility()" />
+        </div>
+        <div>
+          <a (click)="forgetPassword()" class="fp-link">Forgot Password?</a>
+        </div>
+      </div>
+      <div class="ln-btn">
+        <button type="submit" class="button" [disabled]="!loginForm.valid" (click)="onLogin()">Login</button>
+      </div>
+    </form>
+  </div>
+  <div class="row-2">
+    <div class="img-onb">
+      <img alt="" src="../../assets/images/maskgroup.svg"  style="object-fit: cover;height: 100vh;"/>
+    </div>
+  </div>
+</div>

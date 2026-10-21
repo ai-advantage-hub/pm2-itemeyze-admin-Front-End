@@ -1,0 +1,63 @@
+<div class="container mt-2">
+  <div class="wrapper">
+    <div class="row-pipe-1">
+      <div class="col-pipe-1">
+        <input type="text" class="search-bar" name="searchField" [formControl]="searchField" placeholder="Search" />
+        <img alt="" class="search-img" src="../../../assets/icons/search-icon.svg" />
+
+        <select [(ngModel)]="filter" (change)="filterForStatus($event.target.value,searchField.value)">
+          <option value="">All</option>
+          <option value="true">Active Users</option>
+          <option value="false">Inactive Users</option>
+        </select>
+      </div>
+      <div class="col-pipe-2">
+        <button class="btn-add" (click)="goToAdd(1)">Add Sub Admin</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row-pipe-2">
+  <table aria-describedby="">
+    <tr class="table-header">
+      <!-- <th style="text-align: left;">S.No.</th> -->
+      <th scope="col" style="text-align: left;">Full Name</th>
+      <th scope="col" style="width: 30%;">Modules Accessible</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Email ID</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+    <tr class="table-row" *ngFor="
+          let i of data
+            | paginate : { itemsPerPage: itemsPerPage, currentPage: currentPage ,totalItems: count};
+            let s = index">
+      <!-- <td style="text-align: left;padding-left: 45px;">{{ s + 1 }}</td> -->
+      <td style="text-align: left; padding-left: 30px;">{{ i.full_name ? i.full_name : "NA" }}</td>
+      <td>
+        <p *ngFor="let data of i?.modules_accessible; let last = last" style="margin-bottom: 4px;">{{data}}{{ !last ? ',
+          ' : '' }}</p>
+      </td>
+      <td>{{ i.phone_number ? i.phone_number : "NA" }}</td>
+      <td>{{ i.email ? i.email : "NA" }}</td>
+      <td>
+        <label class="toggle">
+          <input type="checkbox" [checked]="i?.is_active" (click)="changeStatus(i?.id, i?.is_active,searchField.value)" />
+          <span class="slider"></span>
+        </label>
+      </td>
+      <td>
+        <a class="view-link" (click)="viewPage(i?.id,i?.is_active)">View</a>
+      </td>
+    </tr>
+  </table>
+  <div *ngIf="count == 0" class="nodata">
+    <p>No Data Found</p>
+  </div>
+  <div class="text-right" *ngIf="count > 0">
+    <p class="page-text">
+      Showing {{ getShownEntriesRange() }} of {{ count}} entries
+    </p>
+    <pagination-controls (pageChange)="onPageChange($event,searchField.value)"></pagination-controls>
+  </div>
+</div>

@@ -1,0 +1,540 @@
+<!-- <ngx-ui-loader *ngIf="downlaodzip"></ngx-ui-loader> -->
+
+<div class="container mt-2">
+  <div class="wrapper">
+    <div class="row-pipe-1">
+      <div class="col-pipe-1">
+        <div class="heading">
+          <img
+            routerLink="../../manage-projects"
+            class="heading-image"
+            alt=""
+            src="../../../assets/icons/arrow-back-icon.svg"
+          />
+          <div class="main-heading">View Project Details</div>
+        </div>
+        <div class="header-buttons">
+          <button class="button-2 Edit" (click)="openEditModel(id)">
+            Edit
+          </button>
+          <button
+            class="common-btn file-bin notification-btn"
+            (click)="goToFiles()"
+          >
+            <span class="notification-badge">{{ fileCount }}</span>
+            Files Bin
+          </button>
+          <button class="button-2 btn common-btn" (click)="fileExport()" [disabled]="newSelectedItems.length === 0">Export CSV</button>
+          <button class="button-3" (click)="goToAddFile()">Add New File</button>
+        </div>
+      </div>
+      <div class="col-pipe-2">
+        <div class="project-list">
+          <div class="list-heading">
+            <h3>Project Details</h3>
+          </div>
+          <div class="listing">
+            <ul class="list-key">
+              <li>Project Name:</li>
+              <li>Project Number:</li>
+              <li>Company Name:</li>
+              <li>Site Name:</li>
+              <li>Created By:</li>
+              <li>Date Created:</li>
+              <li>
+                <a class="del-link" (click)="openDeleteModal(id)"
+                  >Delete Project</a
+                >
+              </li>
+            </ul>
+            <ul class="list-values">
+              <li>
+                {{ dataitems?.project_name ? dataitems?.project_name : 'NA' }}
+              </li>
+              <li>
+                {{
+                  dataitems?.project_number ? dataitems?.project_number : 'NA'
+                }}
+              </li>
+              <li>
+                {{ dataitems?.company_name ? dataitems?.company_name : 'NA' }}
+              </li>
+              <li>{{ dataitems?.site_name ? dataitems?.site_name : 'NA' }}</li>
+              <li>
+                {{ dataitems?.created_by ? dataitems?.created_by : 'NA' }}
+              </li>
+              <li>
+                {{
+                  dataitems?.created_at
+                    ? (dataitems?.created_at | date : 'dd MMM yyyy')
+                    : 'NA'
+                }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="del-button">
+          <button class="button-4" (click) = "openDeleteModal(id)">Delete Project</button>
+        </div> -->
+    </div>
+  </div>
+</div>
+<div class="row-pipe-2">
+  <div class="table-top">
+    <div class="table-heading">
+      <h3>Files</h3>
+    </div>
+    <button
+      [disabled]="newSelectedItems.length === 0"
+      class="btn common-btn"
+      (click)="downloadFiles()"
+      style="margin: 0"
+    >
+      Download Images
+    </button>
+    <!-- <button
+      class="btn common-btn"
+      (click)="getDownloadData()"
+      [disabled]="downloadbtn"
+      id="downloadImageBtn"
+    >
+      Download Images
+    </button> -->
+  </div>
+  <div class="table-top">
+    <div class="input-group me-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search"
+        aria-label="Search"
+        aria-describedby="search-icon"
+        [(ngModel)]="searchFile"
+        (input)="this.currentPage = 1; approvedFileList(1)"
+      />
+      <span class="input-group-text" id="search-icon">
+        <img
+          alt=""
+          class="search-img"
+          src="../../../assets/icons/search-icon.svg"
+        />
+      </span>
+    </div>
+    <div class="input-group me-3">
+      <input
+        class="form-control"
+        placeholder="Start Date"
+        name="dpStart"
+        readonly
+        ngbDatepicker
+        #dpStart="ngbDatepicker"
+        [(ngModel)]="startDate"
+        (dateSelect)="onStartDateSelect($event)"
+      />
+      <button
+        class="btn btn-outline-secondary"
+        (click)="dpStart.toggle()"
+        type="button"
+      >
+        <img
+          alt=""
+          class="search-img calender-icon"
+          src="../../../assets/icons/calendar-icon.svg"
+        />
+      </button>
+    </div>
+
+    <div class="input-group me-3">
+      <input
+        class="form-control"
+        placeholder="End Date"
+        name="dpEnd"
+        ngbDatepicker
+        readonly
+        #dpEnd="ngbDatepicker"
+        [(ngModel)]="endDate"
+        [minDate]="startDate"
+        (dateSelect)="onEndDateSelect($event)"
+      />
+      <button
+        class="btn btn-outline-secondary"
+        (click)="dpEnd.toggle()"
+        type="button"
+      >
+        <img
+          alt=""
+          class="search-img calender-icon"
+          src="../../../assets/icons/calendar-icon.svg"
+        />
+      </button>
+    </div>
+    <div>
+      <button
+        class="btn btn-outline-secondary"
+        (click)="resetFilter()"
+        type="button"
+      >
+        <img
+          alt=""
+          class="search-img calender-icon"
+          src="../../../assets/icons/reset.svg"
+        />
+      </button>
+    </div>
+  </div>
+  <div class="row-pipe-2">
+    <table aria-describedby="">
+      <tr class="table-header">
+        <!-- <th scope="col">
+          <input
+            type="checkbox"
+            [(ngModel)]="selectAll"
+            (change)="toggleAll()"
+          />
+        </th> -->
+        <th scope="col" style="text-align: left; width: 35%">File Name</th>
+        <th scope="col" style="width: 15%">Image</th>
+        <th scope="col" style="width: 20%">Date Created</th>
+        <th scope="col" style="width: 30%">Action</th>
+      </tr>
+      <tr
+        class="table-row"
+        *ngFor="
+          let i of items
+            | paginate
+              : {
+                  itemsPerPage: itemsPerPage,
+                  currentPage: currentPage,
+                  totalItems: count
+                };
+          let s = index
+        "
+      >
+        <!-- <td>
+          <input
+            
+            type="checkbox"
+            [(ngModel)]="i.selected"
+            (change)="onItemSelect()"
+          />
+        </td> -->
+        <td style="text-align: left">
+          {{ i?.file_name ? i?.file_name : 'NA' }}
+          <!-- <span class="disapprove-btn" *ngIf="i?.is_file_disapproved"><img src="assets/icons/Vector.svg"
+              alt="">Disapproved Files</span> -->
+        </td>
+        <td>
+          <img class="file-image" alt="" [src]="getUrl(i?.thumbnail)" />
+        </td>
+        <td>
+          {{ i?.created_at ? (i.created_at | date : 'dd MMM yyyy') : 'NA' }}
+        </td>
+        <td>
+          <a class="edit-link" (click)="goToeditFile(i?.id)">Edit</a>
+          <a class="view-link" (click)="gotToViewFile(i?.id)">View</a>
+          <a
+            class="delete-link"
+            *ngIf="!i?.is_file_disapproved"
+            (click)="openDeleteFileModal(i?.id)"
+            >Delete</a
+          >
+        </td>
+      </tr>
+    </table>
+    <div *ngIf="count == 0" class="nodata">
+      <p>No Data Found</p>
+    </div>
+    <div *ngIf="count > 0" class="text-right">
+      <p class="page-text">
+        Showing {{ getShownEntriesRange() }} of {{ count }} entries
+      </p>
+      <pagination-controls
+        class="custom-input-page"
+        (pageChange)="onPageChange($event)"
+      ></pagination-controls>
+      <div class="input-group pagination-input">
+        <input
+          #i
+          type="text"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          class="form-control custom-pages-input"
+          id="paginationInput"
+          [value]="currentPage"
+          (keyup.enter)="onPageChange(i.value)"
+          (blur)="onPageChange(i.value)"
+          (input)="formatInput($any($event).target)"
+          aria-labelledby="paginationInputLabel paginationDescription"
+          style="
+            width: 2.5rem;
+            padding: 0.1875rem 0.625rem;
+            border-radius: 5px;
+            margin-right: 5px;
+          "
+        />
+        <span> of {{ getLastPage() }}</span>
+      </div>
+      <!-- <div class="text-right pagination-container">
+        <p class="page-text col-form-label">
+          Showing {{ getShownEntriesRange() }} of {{ count }} entries
+        </p>
+        <ngb-pagination
+          [collectionSize]="count"
+          [(page)]="currentPage"
+          [boundaryLinks]="true"
+          (pageChange)="onPageChange(currentPage)"
+        >
+          <ng-template ngbPaginationPages let-page let-pages="pages">
+            <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+              <div class="form-group d-flex flex-nowrap px-2">
+                <label
+                  id="paginationInputLabel"
+                  for="paginationInput"
+                  class="col-form-label mr-2 ml-1"
+                  >Page
+                </label>
+                <input
+                  #i
+                  type="text"
+                  inputmode="numeric"
+                  pattern="[0-9]*"
+                  class="form-control custom-pages-input"
+                  id="paginationInput"
+                  [value]="currentPage"
+                  (keyup.enter)="onPageChange(i.value)"
+                  (blur)="onPageChange(i.value)"
+                  (input)="formatInput($any($event).target)"
+                  aria-labelledby="paginationInputLabel paginationDescription"
+                  style="width: 2.5rem"
+                />
+                <span
+                  id="paginationDescription"
+                  class="col-form-label text-nowrap px-2"
+                >
+                  of {{ getLastPage() }}</span
+                >
+              </div>
+            </li>
+          </ng-template>
+        </ngb-pagination>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<!-- Delete File Modal starts -->
+<ng-template #deleteFileModal let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content delete-modal">
+      <form (ngSubmit)="deleteFiles()" class="">
+        <div class="modal-title">Delete File</div>
+        <div class="modal-text">
+          <h3>Are you sure you want to delete the file?</h3>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="hideDeleteFileModal()"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-delete">Delete File</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Delete File Modal ends -->
+
+<!-- Delete Projet Modal starts -->
+<ng-template #deleteProjectModal let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content delete-modal">
+      <form (ngSubmit)="deleteProjectName()" class="">
+        <div class="modal-title">Delete Project</div>
+        <div class="modal-text">
+          <h3>Are you sure you want to delete the project?</h3>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="hideDeleteModal()"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-delete">Delete Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Delete Action Modal ends -->
+
+<!-- Edit Project Modal starts -->
+<ng-template #editModel let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content approve-modal">
+      <form [formGroup]="EditProjectForm" class="project-info">
+        <div class="project-title">
+          <label class="input-label"
+            >Project Title
+            <span class="necessary">*</span>
+          </label>
+          <input
+            class="enter"
+            type="text"
+            placeholder="Enter Text Here"
+            formControlName="project_name"
+            maxlength="30"
+            required
+          />
+          <!-- <span
+            *ngIf="EditProjectForm.get('project_name').errors?.required && EditProjectForm.get('project_name').touched"
+            class="val-error">Please enter project title</span>
+          <img
+            *ngIf="EditProjectForm.get('project_name').errors?.required && EditProjectForm.get('project_name').touched"
+            class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg"> -->
+        </div>
+        <div class="project-number">
+          <label class="input-label"
+            >Project Number
+            <span class="necessary">*</span>
+          </label>
+          <input
+            class="enter"
+            type="text"
+            placeholder="Enter Text Here"
+            formControlName="project_number"
+            maxlength="30"
+            required
+          />
+          <!-- <span
+            *ngIf="EditProjectForm.get('project_number').errors?.required && EditProjectForm.get('project_number').touched"
+            class="val-error">Please enter project number</span>
+          <img
+            *ngIf="EditProjectForm.get('project_number').errors?.required && EditProjectForm.get('project_number').touched"
+            class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg"> -->
+        </div>
+        <div class="assign-to">
+          <label class="input-label">Company Name</label>
+          <ng-select
+            formControlName="company_name"
+            placeholder="Enter Company Name"
+            (change)="CompanySelection($event)"
+          >
+            <ng-option *ngFor="let i of companyArr" [value]="i">{{
+              i.name
+            }}</ng-option>
+          </ng-select>
+          <!-- 
+          <input type="input" list="companyList" id="companyList">
+          <datalist id="companyList">
+            <option *ngFor="let company of companyArr" [value]="company.name">{{ company.name }}</option>
+          </datalist> -->
+
+          <!-- <ng-select  formControlName = "company_name" placeholder = "Enter Company Name" >
+              <ng-option *ngFor="let i of companyArr" [value]="i">{{i.name}}</ng-option>
+           </ng-select>
+          <div class="val-error" *ngIf="EditProjectForm.get('company_name').hasError('companyNotFound')">
+            Company Name doesn't exist.
+          </div>
+          <img *ngIf="EditProjectForm.get('company_name').hasError('companyNotFound')" class="val-image" alt=""
+            src="../../../assets/icons/validation-triangle.svg"> -->
+        </div>
+
+        <div class="assign-to">
+          <label class="input-label">Assign To</label>
+          <!-- <ng-select  formControlName="assign_to" placeholder = "Enter Email" (change)="selectData($event)">
+            <ng-option *ngFor="let i of assigners" [value]="i">{{i.user__email }}</ng-option>
+         </ng-select> -->
+          <ng-select
+            formControlName="assign_to"
+            placeholder="Enter Email"
+            (change)="selectData($event)"
+          >
+            <ng-option *ngFor="let i of assigners" [value]="i">{{
+              i?.user__email
+            }}</ng-option>
+          </ng-select>
+
+          <div
+            class="val-error"
+            *ngIf="EditProjectForm.get('assign_to').hasError('emailNotFound')"
+          >
+            Email doesn't exist. Enter a different email.
+          </div>
+          <img
+            *ngIf="EditProjectForm.get('assign_to').hasError('emailNotFound')"
+            class="val-image"
+            alt=""
+            src="../../../assets/icons/validation-triangle.svg"
+          />
+          <div class="email-select">
+            <span
+              *ngFor="let chip of emails; let i = index"
+              class="badge text-bg-primary chip"
+              >{{ chip }}
+              <!-- <span (click)="removeEmail(chip)" class="material-icons chip-close">close</span> -->
+              <span
+                (click)="removeIdAndEmail(i)"
+                class="material-icons chip-close"
+                >close</span
+              >
+            </span>
+          </div>
+        </div>
+
+        <div class="assign-to">
+          <label class="input-label"
+            >Site Name
+            <span class="necessary">*</span>
+          </label>
+          <input
+            class="enter"
+            type="text"
+            placeholder="Enter Text Here"
+            formControlName="site_name"
+            maxlength="30"
+            required
+          />
+        </div>
+
+        <!-- Default switch -->
+        <div class="form-check form-switch d-flex">
+          <label class="form-check-label" for="flexSwitchCheckChecked">
+            Transfer Ownership To Admin</label
+          >
+          <input
+            class="form-check-input"
+            type="checkbox"
+            role="switch"
+            id="flexSwitchCheckChecked"
+            [checked]="created_by_admin"
+            [disabled]="created_by_admin"
+            (change)="transferownership($event)"
+          />
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="hideDeleteModal()"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-approve" (click)="EditProject()">
+            Confirm
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Edit Project Modal ends -->
+
+<!-- <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple"></ngx-spinner> -->

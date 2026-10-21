@@ -1,0 +1,305 @@
+<div class="container mt-2">
+  <div class="wrapper">
+    <div class="row-pipe-1">
+      <div class="col-pipe-1">
+        <div class="heading">
+          <img
+            (click)="back()"
+            class="heading-image"
+            alt=""
+            src="../../../assets/icons/arrow-back-icon.svg"
+          />
+          <div class="main-heading" *ngIf="role == 1 || role == 2">
+            View File Details
+          </div>
+          <div class="main-heading" *ngIf="role == 3">
+            Disapproved File Details
+          </div>
+          <div class="main-heading" *ngIf="role == 4">Deleted File Details</div>
+        </div>
+        <div class="header-buttons" *ngIf="role == 1">
+          <button
+            class="button-1"
+            *ngIf="!data?.is_admin_approved"
+            (click)="disapproveFiles(1)"
+          >
+            Approve
+          </button>
+          <button
+            class="button-2"
+            *ngIf="!data?.is_marked_deleted"
+            (click)="disapproveFiles(2)"
+          >
+            Deny
+          </button>
+        </div>
+        <div class="header-buttons" *ngIf="role == 2">
+          <button
+            class="btn button-3"
+            *ngIf="!data?.is_file_disapproved && !data.creted_by_admin"
+            (click)="openDisapproveFileModal()"
+          >
+            Disapprove
+          </button>
+          <button
+            class="btn button-3"
+            *ngIf="data?.is_file_disapproved"
+            [disabled]="data?.is_file_disapproved"
+            (click)="openDisapproveFileModal()"
+          >
+            Disapproved
+          </button>
+          <button
+            class="btn button-1"
+            *ngIf="!data?.is_file_disapproved"
+            (click)="goToeditFile()"
+          >
+            Edit
+          </button>
+          <button
+            class="btn button-2"
+            *ngIf="!data?.is_file_disapproved"
+            (click)="openDeleteFileModal()"
+          >
+            Delete
+          </button>
+        </div>
+        <div class="header-buttons" *ngIf="role == 3">
+          <button
+            class="button-1"
+            *ngIf="!data?.is_admin_approved"
+            (click)="disapproveFiles(1)"
+          >
+            Approve
+          </button>
+          <button
+            class="button-2"
+            *ngIf="
+              data?.disapproved_status === 2 || data?.disapproved_status === 0
+            "
+            (click)="disapproveFiles(2)"
+          >
+            Deny
+          </button>
+          <button class="btn button-2" (click)="openDeleteFileModal()">
+            Delete
+          </button>
+        </div>
+        <div *ngIf="role == 4" class="row">
+          <div class="col-4">
+            <button class="common-btn" (click)="GotoEdit(fileId, id, role)">
+              Edit
+            </button>
+          </div>
+          <div class="col-2 offset-2">
+            <button class="common-btn" (click)="openRestoreModal(fileId)">
+              Restore
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row-pipe-2">
+  <div class="col-pipe-2">
+    <div class="img-container">
+      <div class="img-one">
+        <img class="image" alt="" [src]="imagePath(data?.thumbnail)" />
+      </div>
+
+      <div class="img-two mt-4">
+        <label class="label" *ngIf="data?.secondary_image"
+          >Secondary image :</label
+        >
+        <img
+          class="image mt-3"
+          alt=""
+          [src]="imagePath(data?.secondary_image)"
+          *ngIf="data?.secondary_image"
+        />
+      </div>
+    </div>
+
+    <!-- <div class="img-container">
+
+      <img class="image" alt="" [src]="imagePath(data?.thumbnail)" />
+      <label class="secondary-text list-l" *ngIf="data?.secondary_image">Secondary image </label>
+      <img class="image" alt="" [src]="imagePath(data?.secondary_image)"  *ngIf="data?.secondary_image"/>
+    </div> -->
+  </div>
+  <div class="col-pipe-3">
+    <div class="project-info">
+      <div class="listing">
+        <div class="list-l">File Name</div>
+        <div class="list-r">{{ data?.file_name ? data?.file_name : 'NA' }}</div>
+      </div>
+      <div class="listing">
+        <div class="list-l">Created by</div>
+        <div class="list-r">{{ data?.full_name ? data?.full_name : 'NA' }}</div>
+      </div>
+      <div class="listing">
+        <div class="list-l">Manufacturer Name</div>
+        <!-- <div class="list-r" *ngIf="data?.manufacturer_name != null ">
+          {{ data?.manufacturer_name ? data?.manufacturer_name : "NA" }}
+        </div>
+        <div class="list-r" *ngIf="data?.manufacturer_name == null ">
+          {{ data?.data?.manufacturer_name? data?.data?.manufacturer_name: "NA" }}
+        </div> -->
+        <div class="list-r">
+          {{ data?.name_manufacturer ? data?.name_manufacturer : 'NA' }}
+        </div>
+      </div>
+      <div class="listing">
+        <div class="list-l">Manufacturer Part Number</div>
+        <div class="list-r">
+          {{ data?.manufacturing_number ? data?.manufacturing_number : 'NA' }}
+        </div>
+      </div>
+      <div class="listing">
+        <div class="list-l">Internal Part Number</div>
+        <div class="list-r">
+          {{ data?.ipn ? data?.ipn : 'NA' }}
+        </div>
+      </div>
+      <div class="listing">
+        <div class="list-l">Location</div>
+        <div class="list-r">{{ data?.location ? data?.location : 'NA' }}</div>
+      </div>
+      <div class="listing">
+        <div class="list-l">Quantity</div>
+        <div class="list-r">{{ data?.quantity }}</div>
+      </div>
+    </div>
+    <div class="details">
+      <h3 class="head">Product Details <span>(max 500 characters)</span></h3>
+      <textarea readonly class="para" style="word-break: break-all">{{
+        data?.project_details ? data?.project_details : 'NA'
+      }}</textarea>
+      <h3 class="head">Additional Notes <span>(max 200 characters)</span></h3>
+      <textarea readonly class="para" style="word-break: break-all">{{
+        data?.additional_details ? data?.additional_details : 'NA'
+      }}</textarea>
+      <!-- <h3 class="head">Auto Recording</h3>
+            <img class="dummy-audio" alt="" src="../../../assets/images/audio-recording.svg"> -->
+      <div *ngIf="this.data?.recording">
+        <mat-advanced-audio-player
+          [playlist]="playlist"
+        ></mat-advanced-audio-player>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete File Modal starts -->
+<ng-template #deleteFileModal let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content delete-modal">
+      <form (ngSubmit)="deleteFiles(data.id)" class="">
+        <div class="modal-title">Delete File</div>
+        <div class="modal-text">
+          <h3>Are you sure you want to delete the file?</h3>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="hideDeleteFileModal()"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-delete">Delete File</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Delete File Modal ends -->
+
+<!-- Disapprove File Modal starts -->
+<ng-template #disapproveFileModal let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content delete-modal">
+      <form class="">
+        <div class="modal-title mb-5">Disapprove File</div>
+        <div class="modal-text">
+          <form [formGroup]="commentForm">
+            <h3 class="modal-head">Add Comments*</h3>
+            <textarea
+              class="form-control"
+              placeholder="Max 500 characters"
+              formControlName="comment"
+              maxlength="500"
+              minlength="5"
+              required
+            ></textarea>
+            <h3 class="modal-head">Select User*</h3>
+            <ng-select
+              formControlName="userId"
+              placeholder="User Name"
+              [typeahead]="searchInput$"
+              class="custom-ng-select"
+            >
+              <ng-option *ngFor="let i of userArray" [value]="i.id">{{
+                i.full_name
+              }}</ng-option>
+            </ng-select>
+
+            <h3 class="modal-head mt-3">
+              Created By: {{ data?.full_name ? data?.full_name : 'NA' }}
+            </h3>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="hideDisapproveFileModal()"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="btn btn-delete"
+            (click)="disapproveStatus()"
+            [disabled]="!commentForm.valid"
+          >
+            Disapprove
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Disapprove File Modal ends -->
+
+<!-- Restore Modal starts -->
+<ng-template #restoreModal let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content restore-modal">
+      <form class="">
+        <div class="modal-title">Restore File</div>
+        <div class="modal-text">
+          <h3>Are you sure you want to restore the file?</h3>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="hideRestoreModal()"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="btn btn-restore"
+            (click)="restoreDeleteFiles(fileId)"
+          >
+            Restore File
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Restore Modal ends -->

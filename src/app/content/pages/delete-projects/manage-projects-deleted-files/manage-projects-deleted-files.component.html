@@ -1,0 +1,156 @@
+<div class="container mt-2">
+    <div class="wrapper">
+      <div class="row-pipe-1">
+        <div class="col-pipe-1">
+          <div class="heading">
+            <img (click)="goBack()" class="heading-image" alt=""
+              src="../../../assets/icons/arrow-back-icon.svg">
+              <div class="main-heading">
+
+                <button class="button-1 notification-btn" (click)="goToFileBin()">
+                  <span class="notification-badge">{{disapproved_files_count}}</span>
+                  Disapproved Files
+                </button>
+                &nbsp;
+                <button class="button-2 notification-btn" (click)="goToMarkedBin()">
+                  <span class="notification-badge">{{filecount}}</span>
+                  Marked for Deletion
+                </button>
+                &nbsp;
+
+                <!-- <button class="button-1" (click)="goToFileBin()">Disapproved Files</button>
+                <div class="notification">
+                  <span class="count">{{disapproved_files_count}}</span>
+                </div>
+                <button class="button-2" (click)="goToMarkedBin()">Marked for Deletion</button>
+                <div class="notification">
+                  <span class="count">{{filecount}}</span>
+                </div> -->
+                <button class="button-3 notification-btn">
+                  <span class="notification-badge">{{deletedFiles}}</span>
+                  Deleted Files</button>
+              </div>
+              <div class="filter" *ngIf="items.length > 0">
+                <select [(ngModel)]="filter" (change)="openSelectModal($event.target.value)">
+                  <option disabled selected value=0>Select Action</option>
+                  <option value=1>Restore</option>
+                </select>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row-pipe-2">
+    <table aria-describedby="">
+      <tr class="table-header">
+        <th scope="col">
+          <input type="checkbox"  type="checkbox" *ngIf="items.length > 0"  [(ngModel)]="allSelected" (change)="checkedAll($event)">
+        </th>
+        <th scope="col" style="text-align: left; width: 25%">File Name</th>
+        <th scope="col" style="width: 25%">Image</th>
+        <th scope="col" style="width: 25%">Deleted On</th>
+        <th scope="col" style="width: 25%">Action</th>
+      </tr>
+      <tr class="table-row" *ngFor="
+            let i of items
+              | paginate : { itemsPerPage: itemsPerPage, currentPage: currentPage };
+              let index = index">
+        <td>
+          <input type="checkbox" [checked]="isChecked" (change)="onCheckTask(i?.id, $event)">
+        </td>            
+        <td style="text-align: left">{{i?.file_name ? i?.file_name  :"NA"}}</td>
+        <td>
+            <img alt=""  [src]="getUrl(i?.thumbnail)" style="width: 45px; height: 45px; border-radius: 10px;">
+            
+        </td>
+        <td>{{i?.deleted_at ? (i?.deleted_at | date : 'dd-MMM-yyyy') : "NA"}}</td>
+        <td class="d-flex text-center">
+          <a class="view-link mt-3" (click)="goToViewFile(i?.id)">View</a>
+          <a class="view-link mt-3 Edit" [routerLink]="['/pages/manage-projects-deleted-files-edit']" [queryParams]="{ id: i?.id,role:2,projectId:projectId}">Edit</a>
+          <a class="restore-link mt-3" (click)="openRestoreModal(i?.id)">Restore</a>
+          {{i.action}}
+        </td>
+      </tr>
+    </table>
+    <div class="no-data" *ngIf="items.length == 0">
+      <h2>No Data Available</h2>
+    </div>
+    <div class="text-right" *ngIf="items.length > 0">
+      <div class="selected-count">
+        <p style="padding: 3px 30px 0 30px;">Selected Record Counts:</p>
+      </div>
+      <p class="page-text" style="padding: 3px 30px 0 30px;">
+        Showing {{ getShownEntriesRange() }} of {{ items.length }} entries
+      </p>
+      <pagination-controls style="padding: 3px 30px 0 30px;" (pageChange)="currentPage = $event"></pagination-controls>
+    </div>
+  </div>
+  
+  <!-- Restore Modal starts -->
+  <ng-template #restoreModal let-modal>
+    <div class="modal-body text-center">
+      <div class="modal-content restore-modal">
+        <form class="">
+          <div class="modal-title">Restore File</div>
+          <div class="modal-text">
+            <h3>Are you sure you want to restore the file?</h3>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="hideRestoreModal()"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-restore" (click)="restoreDeleteFiles()">Restore File</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+  <!-- Restore Modal ends -->
+  
+  <!-- Approve Project Request Modal starts -->
+  <ng-template #approveModel let-modal>
+    <div class="modal-body text-center">
+      <div class="modal-content approve-modal">
+        <form [formGroup]="approveProjectForm" class="project-info">
+          <div class="project-title">
+            <label class="input-label">Project Title
+              <span class="necessary">*</span>
+            </label>
+            <input class="enter" type="text" placeholder="Enter Text Here" formControlName="project_name" required />
+            <span *ngIf="approveProjectForm.get('project_name').errors?.required && approveProjectForm.get('project_name').touched"
+            class="val-error">Please enter project title</span>
+            <img *ngIf="approveProjectForm.get('project_name').errors?.required && approveProjectForm.get('project_name').touched" class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+          </div>
+          <div class="project-number">
+            <label class="input-label">Project Number
+              <span class="necessary">*</span>
+            </label>
+            <input class="enter" (input)="onInputChange($event)" type="text" placeholder="Enter Text Here" formControlName="project_number" required />
+            <span *ngIf="approveProjectForm.get('project_number').errors?.required && approveProjectForm.get('project_number').touched"
+            class="val-error">Please enter project number</span>
+            <img *ngIf="approveProjectForm.get('project_number').errors?.required && approveProjectForm.get('project_number').touched" class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+          </div>
+          <div class="assign-to">
+            <label class="input-label">Assign To</label>
+            <input class="enter" type="email" placeholder="Enter Email Address" formControlName="assign_to">
+            <span *ngIf="approveProjectForm.get('assign_to').hasError('assign_to') && approveProjectForm.get('assign_to').touched"
+            class="val-error">Please enter valid email address</span>
+            <img *ngIf="approveProjectForm.get('assign_to').hasError('assign_to') && approveProjectForm.get('assign_to').touched" class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="hide()">Cancel</button>
+            <button type="submit" class="btn btn-approve" (click)="approveProject()">Approve</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+  
+  <!-- Approve Project Request Modal ends -->
+

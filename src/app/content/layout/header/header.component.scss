@@ -1,0 +1,188 @@
+/* Styling for header section starts */
+mat-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 12%;
+    background-color: #F1F1F1;
+}
+
+/* Styling for header row starts */
+mat-toolbar-row {
+    position: absolute;
+    top: 15%;
+}
+/* Styling for header row ends */
+
+/* Styling for header title starts */
+.header-heading {
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+    padding-left: 15px;
+}
+/* Styling for header title ends */
+
+/* Styling for search bar starts */
+.search-bar {
+    width: 30%;
+    height: 70%;
+    border: none;
+    left: 45%;
+    top: 10%;
+    position: absolute;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    padding-left: 15px;
+    color: #444444;
+    font-style: italic;
+}
+
+.search-img {
+    position: absolute;
+    right: 27%;
+    width: 1.5%;
+    top: 35%;
+    padding-bottom: 5px;
+    color: #444444;
+}
+/* Styling for search bar ends */
+
+/* Styling for user-image, username and dropdown icon starts */
+li {
+    list-style: none;
+}
+
+/* Styling for username starts */
+button.user.mt-2.d-flex.align-items-center {
+    border: none;
+    background: none;
+    padding-right: 30px;
+    color: #444444;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+}
+/* Styling for username ends */
+
+/* Syling for user-image starts */
+img.user-image.mr-1.p-2 {
+    height: 60px;
+    margin-right: 5px;
+    border-radius: 30px;
+}
+/* Syling for user-image ends */
+
+/* Styling for dropdown icon starts */
+.mat-icon {
+    margin-left: 10px;
+}
+/* Styling for dropdown icon ends */
+
+/* Styling for dropdown menu starts */
+::ng-deep .mat-mdc-menu-content {
+    padding: 0 !important;
+}
+
+::ng-deep .mat-mdc-menu-panel {
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2), 
+    0px 0px 2px 0px rgba(0, 0, 0, 0.14), 
+    0px 0px 2px 0px rgba(0, 0, 0, 0.12) !important;
+}
+
+::ng-deep .menu-card {
+    width: 216px;
+    right: 15%;
+    position: relative;
+    display: inline-table;
+}
+
+button.mat-mdc-menu-item.mat-mdc-focus-indicator {
+    padding-left: 7%;
+}
+
+button.mat-mdc-menu-item.mat-mdc-focus-indicator:hover {
+    background-color: #8FC36A;
+    color: white;
+}
+
+::ng-deep span.mat-mdc-menu-item-text {
+    font-size: 16px !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+/* Styling for dropdown menu ends */
+
+/* Styling for user-image, username and dropdown icon ends */
+
+/* Styling for header section ends */
+
+
+/* Media Query starts */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    mat-toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        height: 5%;
+        background-color: #F1F1F1;
+    }
+    mat-toolbar-row {
+        position: absolute;
+        top: 5%;
+    }
+    .header-heading {
+        font-size: 18px;
+        font-family: 'Montserrat', sans-serif;
+        color: #444444;
+        padding-left: 10px;
+    }
+    li {
+        list-style: none;
+    }
+    button.user.mt-2.d-flex.align-items-center {
+        border: none;
+        background: none;
+        padding-right: 20px;
+        color: #444444;
+        font-size: 14px;
+        font-family: 'Montserrat', sans-serif;
+    }
+    img.user-image.mr-1.p-2 {
+        height: 50px;
+        margin-right: 5px;
+    }
+    .mat-icon {
+        margin-left: 10px;
+    }
+    ::ng-deep .mat-mdc-menu-content {
+        padding: 0 !important;
+    }
+    ::ng-deep .mat-mdc-menu-panel {
+        box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2), 
+        0px 0px 2px 0px rgba(0, 0, 0, 0.14), 
+        0px 0px 2px 0px rgba(0, 0, 0, 0.12) !important;
+    }
+    ::ng-deep .menu-card {
+        width: 180px;
+        right: 15%;
+        position: relative;
+        display: inline-table;
+        font-size: 4px !important;
+    }
+    button.mat-mdc-menu-item.mat-mdc-focus-indicator {
+        padding-left: 7%;
+    }
+    button.mat-mdc-menu-item.mat-mdc-focus-indicator:hover {
+        background-color: #8FC36A;
+        color: white;
+    }
+    ::ng-deep span.mat-mdc-menu-item-text {
+        font-size: 13px !important;
+        font-family: 'Montserrat', sans-serif !important;
+    }
+  }
+/* Media Query ends */

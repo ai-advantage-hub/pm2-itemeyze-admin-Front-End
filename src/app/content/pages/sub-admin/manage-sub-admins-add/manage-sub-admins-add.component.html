@@ -1,0 +1,117 @@
+<div class="container mt-2">
+  <div class="wrapper">
+    <div class="row-pipe-1">
+      <div class="col-pipe-1">
+        <div class="heading">
+          <img routerLink="../../manage-sub-admins" class="heading-image" alt=""
+            src="../../../assets/icons/arrow-back-icon.svg">
+          <div class="main-heading" *ngIf="role == 1">Add Sub Admin</div>
+          <div class="main-heading" *ngIf="role == 2">Edit Sub Admin</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-pipe-2">
+      <div class="col-pipe-3">
+        <form [formGroup]="addAdmin">
+          <div class="input-form">
+            <div>
+              <img class="icons" alt="" src="../../../../assets/icons/user-icon.svg">
+              <input class="form-control" formControlName="full_name" type="text" placeholder="Sub Admin Full Name"
+                required />
+              <span *ngIf="addAdmin.get('full_name').errors?.required && addAdmin.get('full_name').touched"
+                class="val-error">Please enter your name</span>
+              <img *ngIf="addAdmin.get('full_name').errors?.required && addAdmin.get('full_name').touched"
+                class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+            </div>
+            <br>
+            <div>
+              <img class="icons" alt="" src="../../../../assets/icons/mailicon.svg">
+              <input class="form-control" formControlName="email" type="email" placeholder="Email Address" required>
+              <span *ngIf="addAdmin.get('email').errors?.required && addAdmin.get('email').touched"
+                class="val-error">Please enter your email</span>
+              <img alt="" *ngIf="addAdmin.get('email').errors?.required && addAdmin.get('email').touched"
+                class="val-image" src="../../../../assets/icons/validation-triangle.svg">
+              <span *ngIf="addAdmin.get('email').hasError('pattern') && addAdmin.get('email').touched"
+                class="val-error">Please enter valid email address</span>
+              <img *ngIf="addAdmin.get('email').hasError('pattern') && addAdmin.get('email').touched" class="val-image"
+                alt="" src="../../../../assets/icons/validation-triangle.svg">
+            </div>
+            <br>
+            <div>
+              <img class="icons" alt="" src="../../../../assets/icons/phone-icon.svg">
+              <input class="form-control" formControlName="phone_number" type="text" autocomplete="off"
+              (keypress)="allow_numbers_only($event)"
+              maxlength="15" placeholder="Phone Number" required>
+              <span
+              *ngIf="(addAdmin.get('phone_number').hasError('minLength') || addAdmin.get('phone_number').hasError('Validators.maxLength(15)')) && addAdmin.get('phone_number').touched"
+              class="val-error">Password must have 8-15 characters.</span>
+            <img
+              *ngIf="( addAdmin.get('phone_number').hasError('minLength') || addAdmin.get('phone_number').hasError('Validators.maxLength(15)')) && addAdmin.get('phone_number').touched"
+              class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+              <span *ngIf="addAdmin.get('phone_number').errors?.required && addAdmin.get('phone_number').touched"
+                class="val-error">Please enter your phone number</span>
+              <img alt="" *ngIf="addAdmin.get('phone_number').errors?.required && addAdmin.get('phone_number').touched"
+                class="val-image" src="../../../../assets/icons/validation-triangle.svg">
+                <span
+                *ngIf="(addAdmin.get('phone_number').hasError('minLength') || addAdmin.get('phone_number').hasError('maxLength')) && addAdmin.get('phone_number').touched"
+                class="val-error">Phone number must contain 8 to 16 digits.</span>
+              <img
+                *ngIf="(addAdmin.get('phone_number').hasError('minLength') || addAdmin.get('phone_number').hasError('maxLength')) && addAdmin.get('phone_number').touched"
+                class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg"
+                style="margin-top: -27px;">
+            </div>
+            <br>
+            <div  *ngIf="role == 1">
+              <img class="icons" alt="" src="../../../assets/icons/lock-icon.svg" style="width: 60px;">
+              <input class="form-control" formControlName="temporary_password"
+                type="{{ showPassword ? 'text' : 'password' }}" placeholder="Temporary Password" />
+              <img class="image-2" *ngIf="!showPassword" alt="" src="../../../assets/icons/show-password-eye-icon.svg"
+                (click)="togglePasswordVisibility()">
+              <img class="image-3" *ngIf="showPassword" alt="" src="../../../assets/icons/hide-password-eye-icon.svg"
+                (click)="togglePasswordVisibility()">
+              <span
+                *ngIf="addAdmin.get('temporary_password').errors?.required && addAdmin.get('temporary_password').touched"
+                class="val-error">Please enter your password</span>
+              <img alt=""
+                *ngIf="addAdmin.get('temporary_password').errors?.required && addAdmin.get('temporary_password').touched"
+                src="../../../../assets/icons/validation-triangle.svg" class="val-image">
+              <span
+                *ngIf="(addAdmin.get('temporary_password').hasError('pattern') || addAdmin.get('temporary_password').hasError('minLength') || addAdmin.get('temporary_password').hasError('Validators.maxLength(15)')) && addAdmin.get('temporary_password').touched"
+                class="val-error">Password must have 8-15 characters comprising one caps, one small, one number and one
+                special character.</span>
+              <img
+                *ngIf="(addAdmin.get('temporary_password').hasError('pattern') || addAdmin.get('temporary_password').hasError('minLength') || addAdmin.get('temporary_password').hasError('Validators.maxLength(15)')) && addAdmin.get('temporary_password').touched"
+                class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg"
+                style="margin-top: -66px;">
+
+            </div>
+          </div>
+        </form>
+        <div class="checkboxes">
+        </div>
+        <div class="checkboxes-heading">Modules Accessible</div>
+        <div class="checkbox-list">
+          <input type="checkbox" class="checkbox" id="manageUsers" [(ngModel)]="ManageUsers" [checked]="ManageUsers"
+            (change)="moduleValue(ManageUsers)">
+          <label for="manageUsers">Manage Users</label>
+          <br>
+          <input type="checkbox" class="checkbox" id="manageContent" [(ngModel)]="ManageContent"
+            [checked]="ManageContent" (change)="moduleValue(ManageContent)">
+          <label for="manageContent">Manage Content</label>
+          <br>
+          <input type="checkbox" class="checkbox" id="manageProjects" [(ngModel)]="ManageProjects"
+            [checked]="ManageProjects" (change)="moduleValue(ManageProjects)">
+          <label for="manageProjects">Manage Projects</label>
+          <br>
+          <input type="checkbox" class="checkbox" id="manageCompanies" [(ngModel)]="ManageCompanies"
+            [checked]="ManageCompanies" (change)="moduleValue(ManageCompanies)">
+          <label for="manageCompanies">Manage Companies</label>
+        </div>
+        <button type="submit" class="btn btn-primary" *ngIf="role == 1" 
+          (click)="addSubAdmin()" >Create Account For Sub Admin</button>
+        <button type="submit" class="btn btn-primary" *ngIf="role == 2" 
+          (click)="updateAdmin()" >Update</button>
+      </div>
+    </div>
+  </div>
+</div>

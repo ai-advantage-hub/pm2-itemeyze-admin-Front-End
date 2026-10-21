@@ -1,0 +1,37 @@
+<div class = "container mt-2">
+    <div class = "wrapper">
+        <div class = "row-pipe-1">
+            <div class = "col-pipe-1">
+                <button (click)="selectButton(1)" [class.selected]="selectedButton === 1">Terms & Conditions</button>
+            </div>
+            <div class = "col-pipe-2">
+                <button  (click)="selectButton(2)" [class.selected]="selectedButton === 2">About The App</button>
+            </div>
+        </div>
+        <div class="row">
+            <form [formGroup] = "contentForm">
+                <div class = "col-12 update-column" *ngIf="!show" style="background: #ffff;">
+                    <quill-editor  [styles]="{height: '300px'}"   class="quill" formControlName="ContentValue" [spellcheck]="true" [required]="true"></quill-editor>
+                </div>
+            </form>
+            <div class = "col-12 update-column" *ngIf="show">
+                <div class ="input-form"  [innerHTML]="displayText" style="overflow: auto;word-break: break-all;"></div>
+                <!-- <textarea readonly class ="input-form" [innerHTML]="displayText"></textarea> -->
+            </div>
+        </div>
+        <div class = "row-pipe-3">
+            <div class = "col-pipe-4" *ngIf="show" >
+                <button  type = "update" class = "btn-update" (click)="changeValue(1)">Update Content</button>
+            </div>
+            <div class = "col-pipe-5" *ngIf="!show" >
+                <button  *ngIf="updateValue" type = "cancel" class = "btn-cancel" (click)="clear(1)">Cancel</button>
+                <button  *ngIf="!updateValue" type = "cancel" class = "btn-cancel" (click)="clear(2)">Cancel</button>
+            </div>
+            <div class = "col-pipe-6" *ngIf="!show" >
+                <button  *ngIf="updateValue" type = "submit" class = "btn-save" [disabled]="!contentForm.valid" (click)="contentUpdate(1)">Save Changes</button>
+                <button  *ngIf="!updateValue" type = "submit" class = "btn-save" [disabled]="!contentForm.valid" (click)="contentUpdate(2)">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+

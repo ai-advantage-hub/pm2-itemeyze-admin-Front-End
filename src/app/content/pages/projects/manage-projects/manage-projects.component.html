@@ -1,0 +1,238 @@
+<div class="container mt-2">
+  <div class="wrapper">
+    <div class="row-pipe-1">
+      <div class="col-pipe-1">
+        <div class="heading">
+          <div class="main-heading">Projects Listing</div>
+        </div>
+        <div class="header-buttons">
+          <button class="common-btn notification-btn" routerLink="../../manage-projects-project-request">
+            <span class="notification-badge">{{ requestCount }}</span>
+            Requests
+          </button>
+
+          <!-- <button class="button-1" routerLink="../../manage-projects-project-request">Requests</button>
+          <div *ngIf="requestCount > 0" class="notification">
+            <span class="count">{{ requestCount }}</span>
+          </div> -->
+          <button class="button-3" routerLink="../../manage-projects-deleted-projects">Deleted Projects</button>
+          <!-- <img alt="" src="../../../assets/icons/notification-icon.svg" /> -->
+          <button class="button-2" routerLink="../../manage-projects-add-project">Create New Project</button>
+        </div>
+      </div>
+      <div class="col-pipe-2">
+        <input type="text" class="search-bar" placeholder="Search" name="searchField" [formControl]="searchField" />
+        <img alt="" class="search-img" src="../../../assets/icons/search-icon.svg" />
+        <select [(ngModel)]="filter" (change)="filterForStatus(searchField.value,$event.target.value)">
+          <option disabled value=0>Project Type</option>
+          <option value=0>All Projects</option>
+          <option value=1>Internal Projects</option>
+          <option value=2>External Projects</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row-pipe-2">
+  <table aria-describedby="">
+    <tr class="table-header">
+      <!-- <th style="text-align: left; width: 15%">S.No.</th> -->
+      <th scope="col" style="text-align: left; width: 20%">Project Name</th>
+      <th scope="col" style="width: 20%">Site Name</th>
+      <th scope="col" style="width: 20%">Company Name</th>
+      <th scope="col" style="width: 20%">Created By</th>
+      <th scope="col" style="width: 10%">Files</th>
+      <th scope="col" style="width: 30%">Action</th>
+    </tr>
+    <tr class="table-row" *ngFor="
+        let i of items
+          | paginate : { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: count };
+          let s = index">
+      <!-- <td style="text-align: left;padding-left: 45px;">{{ s + 1 }}</td> -->
+      <td style="text-align: left">{{ i.project_name ? i.project_name : "NA" }}</td>
+      <td>{{ i?.site_id__name ? i?.site_id__name : "NA" }}</td>
+      <td>{{ i?.company_name ? i?.company_name : "NA" }}</td>
+      <td>{{i?.created_by__full_name ? i?.created_by__full_name : "NA"}}</td>
+      <td>{{i?.num_files ? i?.num_files : "NA"}}</td>
+      <td>
+        <a class="view-link" (click)="viewProjectDetails(i?.id)">View</a>
+        <a class="delete-link edit-link" (click)="openEditModel(i?.id)" >Edit</a>
+        <a class="delete-link" (click)="openDeleteModal(i.id)">Delete</a>
+        {{ i.action }}
+      </td>
+    </tr>
+  </table>
+  <div *ngIf="count == 0" class="nodata">
+    <p>No Data Found</p>
+  </div>
+  <div *ngIf="count > 0" class="text-right">
+    <p class="page-text">
+      Showing {{ getShownEntriesRange() }} of {{ count }} entries
+    </p>
+    <pagination-controls (pageChange)="onPageChange($event,searchField.value)"></pagination-controls>
+  </div>
+</div>
+
+<!--Add New Company Modal starts -->
+<!-- <form class="modal" id="addNewCompanyModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add New Company</h4>
+        </div>
+        <div class="modal-body">
+          <label>Company Title</label>
+          <input type="text" placeholder = "Enter Text Here" formControlName = "company_title">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-save" data-bs-dismiss="modal">Save</button>
+        </div>
+      </div>
+    </div>
+  </form> -->
+<!--Add New Company Modal ends -->
+
+<!-- Edit Action Modal starts -->
+<!-- <form class="modal" id="editModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Company</h4>
+        </div>
+        <div class="modal-body">
+          <label>Company Title</label>
+          <input type="text" placeholder = "Enter Text Here" formControlName = "company_title">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-update" data-bs-dismiss="modal">Update</button>
+        </div>
+      </div>
+    </div>
+  </form> -->
+<!-- Edit Action Modal ends -->
+
+<!-- Delete Projet Modal starts -->
+<ng-template #deleteProjectModal let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content delete-modal">
+      <form (ngSubmit)="deleteProjectName(searchField.value)" class="">
+        <div class="modal-title">Delete Project</div>
+        <div class="modal-text">
+          <h3>Are you sure you want to delete the project?</h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="hideDeleteModal()">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-delete">Delete Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Delete Action Modal ends -->
+
+
+<!-- Edit Project Modal starts -->
+<ng-template #editModel let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content approve-modal">
+      <form [formGroup]="EditProjectForm" class="project-info">
+        <div class="project-title">
+          <label class="input-label">Project Title
+            <span class="necessary">*</span>
+          </label>
+          <input class="enter" type="text" placeholder="Enter Text Here" formControlName="project_name" required />
+          <!-- <span
+            *ngIf="EditProjectForm.get('project_name').errors?.required && EditProjectForm.get('project_name').touched"
+            class="val-error">Please enter project title</span>
+          <img
+            *ngIf="EditProjectForm.get('project_name').errors?.required && EditProjectForm.get('project_name').touched"
+            class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg"> -->
+        </div>
+        <div class="project-number">
+          <label class="input-label">Project Number
+            <span class="necessary">*</span>
+          </label>
+          <input class="enter"  type="text" placeholder="Enter Text Here"
+            formControlName="project_number"  required />
+          <!-- <span
+            *ngIf="EditProjectForm.get('project_number').errors?.required && EditProjectForm.get('project_number').touched"
+            class="val-error">Please enter project number</span>
+          <img
+            *ngIf="EditProjectForm.get('project_number').errors?.required && EditProjectForm.get('project_number').touched"
+            class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg"> -->
+        </div>
+        <div class="assign-to">
+          <label class="input-label">Company Name</label>
+          <ng-select class="select" formControlName = "company_name" placeholder = "Enter Company Name" (change)="CompanySelection($event)">
+            <ng-option *ngFor="let i of companyArr" [value]="i">{{i.name}}</ng-option>
+         </ng-select>
+<!-- 
+          <input type="input" list="companyList" id="companyList">
+          <datalist id="companyList">
+            <option *ngFor="let company of companyArr" [value]="company.name">{{ company.name }}</option>
+          </datalist> -->
+
+          <!-- <ng-select  formControlName = "company_name" placeholder = "Enter Company Name" >
+              <ng-option *ngFor="let i of companyArr" [value]="i">{{i.name}}</ng-option>
+           </ng-select>
+          <div class="val-error" *ngIf="EditProjectForm.get('company_name').hasError('companyNotFound')">
+            Company Name doesn't exist.
+          </div>
+          <img *ngIf="EditProjectForm.get('company_name').hasError('companyNotFound')" class="val-image" alt=""
+            src="../../../assets/icons/validation-triangle.svg"> -->
+        </div>
+
+        <div class="assign-to">
+          <label class="input-label">Assign To</label>
+          <!-- <ng-select  formControlName="assign_to" placeholder = "Enter Email" (change)="selectData($event)">
+            <ng-option *ngFor="let i of assigners" [value]="i">{{i.user__email }}</ng-option>
+         </ng-select> -->
+         <ng-select  formControlName="assign_to" placeholder = "Enter Email" (change)="selectData($event)">
+          <ng-option *ngFor="let i of assigners" [value]="i">{{i?.user__email }}</ng-option>
+       </ng-select>
+
+
+
+
+
+          <div class="val-error" *ngIf="EditProjectForm.get('assign_to').hasError('emailNotFound')">
+            Email doesn't exist. Enter a different email.
+          </div>
+          <img *ngIf="EditProjectForm.get('assign_to').hasError('emailNotFound')" class="val-image" alt=""
+            src="../../../assets/icons/validation-triangle.svg">
+          <div class="email-select">
+            <span *ngFor="let chip of emails;let i=index" class="badge text-bg-primary chip">{{chip}}
+              <!-- <span (click)="removeEmail(chip)" class="material-icons chip-close">close</span> -->
+              <span (click)="removeIdAndEmail(i)" class="material-icons chip-close">close</span>
+            </span>
+          </div>
+        </div>
+
+
+        <div class="assign-to">
+          <label class="input-label">Site Name
+            <span class="necessary">*</span>
+          </label>
+          <input class="enter" type="text" placeholder="Enter Text Here" formControlName="site_name"  required />
+        </div>
+
+        <!-- Default switch -->
+        <div class="form-check form-switch d-flex mt-2">
+          <label class="form-check-label" for="flexSwitchCheckChecked"> Transfer Ownership To Admin</label>
+          <input class="form-check-input row-check" type="checkbox" role="switch" id="flexSwitchCheckChecked" [checked]="created_by_admin" [disabled]="created_by_admin" (change)="transferownership($event)" [ngClass]="{ 'checked': created_by_admin, 'unchecked': !created_by_admin }">
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="hideDeleteModal()">Cancel</button>
+          <button type="submit" class="btn btn-approve" (click)="EditProject()">Confirm</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Edit Project Modal ends -->

@@ -1,0 +1,244 @@
+<div class="container mt-2">
+  <div class="wrapper">
+    <div class="row-pipe-1">
+      <div class="col-pipe-1">
+        <div class="heading">
+          <img
+            (click)="backToDetail()"
+            class="heading-image"
+            alt=""
+            src="../../../assets/icons/arrow-back-icon.svg"
+          />
+          <div class="main-heading">Edit File</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="addFileForm">
+  <div class="row-pipe-2">
+    <div class="col-pipe-2">
+      <div class="image_upload" *ngIf="show">
+        <img alt="" [src]="getUrl(this.addFileForm.controls.thumbnail.value)" />
+      </div>
+      <div *ngIf="!show">
+        <div class="upload">
+          <input
+            type="file"
+            hidden
+            #file
+            (change)="selectFile($event.target.files)"
+            onclick="this.value=null;"
+            accept="image/x-png, image/jpg, image/jpeg"
+          />
+        </div>
+        <span class="img-upload"
+          ><img
+            class="icon-upload"
+            alt=""
+            src="../../../../assets/icons/upload-icon.svg"
+            (click)="file.click()"
+          />Upload Photo</span
+        >
+      </div>
+      <span class="necessary" *ngIf="show" (click)="removePhoto()"
+        >Remove Photo</span
+      >
+      <!-- <img class="dummy-image" alt="" src="../../../assets/images/project-file-dummy-image.svg"> -->
+    </div>
+    <div class="col-pipe-3">
+      <div class="file-name">
+        <img
+          alt=""
+          src="../../../../assets/icons/file-icon.svg"
+          style="padding-left: 23px"
+        />
+        <input
+          class="form-control"
+          formControlName="file_name"
+          type="text"
+          style="border: none; outline: none"
+          readonly
+        />
+      </div>
+
+      <div class="file-name" *ngIf="role == 2 || role == 4">
+        <img
+          class="icons"
+          alt=""
+          src="../../../../assets/icons/user-icon.svg"
+          style="z-index: 1"
+        />
+        <input
+          class="form-control"
+          [value]="profiledata?.full_name"
+          formControlName="full_name"
+          type="text"
+          style="border: none; outline: none"
+          readonly
+        />
+      </div>
+
+      <div class="input-form select-div">
+        <img
+          class="icons"
+          alt=""
+          src="../../../../assets/icons/user-icon.svg"
+          style="z-index: 1"
+        />
+        <ng-select
+          formControlName="manufacturer_name"
+          placeholder="Manufacturer Name"
+          [typeahead]="searchInput$"
+          (search)="onSearch($event)"
+          (keypress)="checkInput($event, 1)"
+        >
+          <ng-option *ngFor="let i of manufacturerArr" [value]="i.id">{{
+            i.name
+          }}</ng-option>
+        </ng-select>
+        <!-- <input class="form-control" formControlName="manufacturer_name" type="text" placeholder="Manufacturer Name" required> -->
+        <span
+          *ngIf="
+            addFileForm.get('manufacturer_name').errors?.required &&
+            addFileForm.get('manufacturer_name').touched
+          "
+          class="val-error"
+          >This field is mandatory</span
+        >
+        <img
+          *ngIf="
+            addFileForm.get('manufacturer_name').errors?.required &&
+            addFileForm.get('manufacturer_name').touched
+          "
+          class="val-image"
+          alt=""
+          src="../../../../assets/icons/validation-triangle.svg"
+        />
+        <br />
+        <img
+          class="icons"
+          alt=""
+          src="../../../../assets/icons/manufacturer-part-number-icon.svg"
+        />
+        <input
+          class="form-control"
+          formControlName="manufacturing_number"
+          type="text"
+          placeholder="Manufacturer Part Number"
+          maxlength="60"
+          required
+        />
+        <span
+          *ngIf="
+            addFileForm.get('manufacturing_number').errors?.required &&
+            addFileForm.get('manufacturing_number').touched
+          "
+          class="val-error"
+          >This field is mandatory</span
+        >
+        <img
+          *ngIf="
+            addFileForm.get('manufacturing_number').errors?.required &&
+            addFileForm.get('manufacturing_number').touched
+          "
+          class="val-image"
+          alt=""
+          src="../../../../assets/icons/validation-triangle.svg"
+        />
+        <br />
+        <img
+          class="icons"
+          alt=""
+          src="../../../../assets/icons/internal_part_number.svg"
+        />
+        <input
+          class="form-control"
+          formControlName="ipn"
+          type="text"
+          placeholder="Internal Part Number"
+          maxlength="60"
+        />
+        <br />
+        <img
+          class="icons"
+          alt=""
+          src="../../../../assets/icons/location-icon.svg"
+        />
+        <input
+          class="form-control"
+          formControlName="location"
+          type="text"
+          placeholder="Location"
+          maxlength="60"
+          required
+        />
+        <span
+          *ngIf="
+            addFileForm.get('location').errors?.required &&
+            addFileForm.get('location').touched
+          "
+          class="val-error"
+          >This field is mandatory</span
+        >
+      </div>
+      <div class="quantity">
+        <img
+          alt=""
+          src="../../../../assets/icons/quantity-icon.svg"
+          style="padding-left: 23px"
+        />
+        <label class="label">Quantity</label>
+        <div class="quantity-box">
+          <button class="decrement" (click)="decrement()">-</button>
+          <input
+            type="text"
+            name="quantity"
+            class="input-quantity"
+            formControlName="quantity"
+            (input)="updateQuantity()"
+            maxlength="6"
+            max="6"
+            (keypress)="checkInput($event, 2)"
+          />
+          <button class="increment" (click)="increment()">+</button>
+        </div>
+      </div>
+      <div class="textarea-form">
+        <img
+          class="icons"
+          alt=""
+          src="../../../../assets/icons/details-icon.svg"
+        />
+        <textarea
+          maxlength="500"
+          class="form-control"
+          formControlName="project_details"
+          placeholder="Product Details (max 500 characters)"
+        ></textarea>
+        <br />
+        <img
+          class="icons"
+          alt=""
+          src="../../../../assets/icons/details-icon.svg"
+        />
+        <textarea
+          maxlength="200"
+          class="form-control"
+          formControlName="additional_details"
+          placeholder="Additional Details (max 200 characters)"
+        ></textarea>
+      </div>
+      <button
+        type="submit"
+        *ngIf="role == 2 || role == 4"
+        class="btn btn-primary"
+        [disbaled]="!addFileForm.valid"
+        (click)="updateFile()"
+      >
+        Update
+      </button>
+    </div>
+  </div>
+</form>

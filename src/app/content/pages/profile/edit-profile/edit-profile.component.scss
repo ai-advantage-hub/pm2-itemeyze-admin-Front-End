@@ -1,0 +1,139 @@
+.container {
+    height: 100%;
+    padding-top: 30px;
+}
+
+.contaienr-header {
+    display: flex;
+    margin-left: 20px;
+    gap: 10px;
+}
+
+.contaienr-header .header-image {
+    padding-top: 3px;
+    cursor: pointer;
+}
+
+.contaienr-header .header-text h3 {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+}
+
+.user-info {
+    text-align: center;
+}
+
+.user-image {
+    display: inline-flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+    border-radius: 50%;
+}
+
+.user-image .img-1 {
+    width: 224px;
+    height: 224px;
+}
+
+.user-image .img-2 {
+    position: absolute;
+    padding-left: 170px;
+    padding-bottom: 20px;
+    cursor: pointer;
+}
+
+.user-name {
+    margin-top: 60px;
+    margin-bottom: 35px;
+    position: relative;
+}
+
+.user-name .user-icon {
+    position: absolute;
+    padding-top: 22px;
+    padding-left: 20px;
+}
+
+.user-name input {
+    width: 400px;
+    height: 63px;
+    border: none;
+    border-radius: 10px;
+    background-color: #F1F1F1;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+    padding-left: 60px;
+    outline: none;
+}
+.user-email {
+    position: relative;
+    margin-top: 30px;
+}
+
+.user-email .mail-icon {
+    position: absolute;
+    padding-top: 25px;
+    padding-left: 20px;
+}
+
+.user-email input {
+    width: 400px;
+    height: 63px;
+    border: none;
+    border-radius: 10px;
+    background-color: #F1F1F1;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+    padding-left: 60px;
+    outline: none;
+}
+
+.update-button {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.btn.btn-primary {
+    width: 171px;
+    height: 45px;
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+    background-color: #8FC36A;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+}
+.val-error {
+    display: flex;
+    left: 29%;
+    position: absolute;
+    top: 103%;
+    background-color: #E72E00;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 0px 10px 1px 10px;
+    height: auto;
+    text-align: initial;
+    font-weight: 600;
+}
+
+.val-image {
+    position: absolute;
+    margin-top: 62px;
+    left: 31%;
+}
+
+input.ng-invalid.ng-touched {
+    border: 2px solid #E72E00;
+}

@@ -1,0 +1,349 @@
+.container {
+    padding-top: 30px;
+}
+
+.container-header {
+    display: flex;
+    margin-left: 20px;
+    gap: 10px;
+}
+
+.container-header .header-image {
+    padding-top: 3px;
+    cursor: pointer;
+}
+
+.container-header.header-text h3 {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+}
+
+.project-info {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.project-title {
+    display: inline-grid;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+label {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+    padding-bottom: 5px;
+}
+
+.project-title input {
+    width: 596px;
+    height: 63px;
+    border: none;
+    border-radius: 10px;
+    background-color: #F1F1F1;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+    padding-left: 20px;
+    outline: none;
+}
+
+.project-number {
+    margin-bottom: 30px;
+    display: inline-grid;
+}
+
+.project-number input {
+    width: 596px;
+    height: 63px;
+    border: none;
+    border-radius: 10px;
+    background-color: #F1F1F1;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+    padding-left: 20px;
+    outline: none;
+}
+
+.project-number input[type="number"]::-webkit-outer-spin-button,
+.project-number input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.company-name {
+    display: flex;
+    flex-direction: column;
+    width: 596px;
+    margin: 0px auto 30px auto;
+    position: relative;
+    // display: inline-grid;
+}
+
+ng-select .ng-select-container {
+    width: 596px;
+    height: 63px;
+    border: none;
+    border-radius: 10px;
+    background-color: #F1F1F1;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+    padding-left: 20px;
+    outline: none;
+}
+
+
+.assign-to {
+    display: inline-grid;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.assign-to .image-1 {
+    position: absolute;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.assign-to input {
+    width: 596px;
+    height: 63px;
+    border: none !important;
+    border-radius: 10px;
+    background-color: #F1F1F1;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+    padding-left: 20px;
+    outline: none;
+}
+
+.assign-to .add-button {
+    position: relative;
+    left: 75%;
+    top: -119%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 136px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.assign-to .add-button img {
+    padding-top: 2px;
+    cursor: pointer;
+}
+
+.btn.btn-add {
+    font-weight: 600;
+    font-size: 16px;
+    font-style: 'Montserrat', sans-serif;
+    color: #444444;
+    padding-top: 10px;
+    border: none;
+}
+
+.list-group {
+    top: 90px;
+    position: absolute;
+    width: 596px;
+    margin-top: 5px;
+    z-index: 1;
+    // height: 200px;
+    overflow-y: auto;
+    // border: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color);
+}
+
+.email-select {
+    text-align: left;
+    width: 596px;
+}
+
+.list-group-item-action {
+    cursor: pointer;
+    text-align: left;
+}
+
+.list-group-item-action:hover {
+    background-color: #8FC36A;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.text-bg-primary {
+    background-color: #F1F1F1 !important;
+    width: fit-content;
+    margin-top: 15px;
+    text-align: left;
+    padding: 7px 10px 7px 10px;
+    color: #444444 !important;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 0.5rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.chip-close {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+}
+
+.site-name {
+    margin-bottom: 30px;
+    display: inline-grid;
+}
+
+.site-name input {
+    width: 596px;
+    height: 63px;
+    border: none;
+    border-radius: 10px;
+    background-color: #F1F1F1;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+    padding-left: 20px;
+    outline: none;
+}
+
+/* Styling for validation starts */
+.val-error {
+    display: flex;
+    left: 0% ; //4%
+    position: inherit;
+    width: fit-content;
+    top: 0; //75
+    background-color: #E72E00;
+    color: #ffffff;
+    font-family: Montserrat, sans-serif;
+    font-size: 11px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 1px 10px 1px 10px;
+    height: auto;
+    text-align: initial;
+    font-weight: 600;
+    margin-top: 3px;
+}
+
+.val-image {
+    position: absolute;
+    margin-top: 87px;
+    padding-left: 19px;
+}
+
+input.ng-invalid.ng-touched {
+    border: 2px solid #E72E00;
+}
+
+/* Styling for validation ends */
+
+.save-button {
+    margin-top: 60px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.btn.btn-primary {
+    width: 181px;
+    height: 45px;
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+    background-color: #8FC36A;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.necessary {
+    color: #E72E00;
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+    .col-pipe-1 .main-heading {
+        font-size: 16px;
+    }
+
+    .project-title input {
+        width: 450px;
+        height: 50px;
+        font-size: 12px;
+    }
+
+    .project-number input {
+        width: 450px;
+        height: 50px;
+        font-size: 12px;
+    }
+
+    .assign-to input {
+        width: 450px;
+        height: 50px;
+        font-size: 12px;
+    }
+
+    .btn.btn-primary {
+        width: 120px;
+        height: 40px;
+        font-size: 12px;
+    }
+
+    .val-error {
+        width: 45%;
+        font-size: 10px;
+    }
+
+    .val-image {
+        margin-top: 75px;
+    }
+}
+
+::ng-deep .ng-select.ng-select-single .ng-select-container {
+    height: 60px !important;
+    width: 596px !important;
+    border: none !important;
+    border-radius: 10px;
+    outline: none;
+    background-color: #f1f1f1;
+    padding-left: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Montserrat", sans-serif;
+    color: #444444;
+  }
+  ::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+      top: 35% !important;
+      padding-left: 25px !important;
+  }
+  
+  ::ng-deep .modal-footer {
+    border-top: none;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  

@@ -1,0 +1,62 @@
+<div class="col-logo">
+  <div class="logo-img">
+    <img alt="" src="../../assets/logos/pm2logo.svg" />
+  </div>
+  <div class="logo-text">
+    <img alt="" src="../../assets/logos/logotext.svg" />
+  </div>
+</div>
+<mat-nav-list class = "sidebar-list" *ngIf="role == 1">
+  <a mat-list-item [disableRipple]="true" routerLink="dashboard"  (click)="selectButton(1)" [class.selected]="selectedButton == 1" routerLinkActive = "list-item-active">
+    <img alt = "" src = "../../../assets/icons/dashboard-icon.svg">
+    <h3>Dashboard</h3>
+  </a>
+  <a mat-list-item [disableRipple]="true"  routerLink="manage-users" (click)="selectButton(2)" [class.selected]="selectedButton == 2" routerLinkActive = "list-item-active">
+    <img alt = "" src = "../../../assets/icons/manageusers-icon.svg">
+    <h3>Manage Users</h3>
+  </a>
+  <a mat-list-item [disableRipple]="true" routerLink="manage-sub-admins" (click)="selectButton(3)" [class.selected]="selectedButton == 3" routerLinkActive = "list-item-active">
+    <img alt = "" src = "../../../assets/icons/managesubadmins-icon.svg">
+    <h3>Manage Sub Admins</h3>
+  </a>
+  <a mat-list-item [disableRipple]="true" routerLink="manage-projects"  (click)="selectButton(4)" [class.selected]="selectedButton == 4" routerLinkActive = "list-item-active">
+    <img alt = "" src = "../../../assets/icons/manageprojects-icon.svg">
+    <h3>Manage Projects</h3>
+  </a>
+  <a mat-list-item [disableRipple]="true" routerLink="manufacturer"  (click)="selectButton(7)" [class.selected]="selectedButton == 7" routerLinkActive = "list-item-active">
+    <img alt = "" src = "../../../assets/icons/manufacturer.svg">
+    <h3>Manage Manufacturers</h3>
+  </a>
+  <a mat-list-item [disableRipple]="true" routerLink = "manage-companies" (click)="selectButton(5)" [class.selected]="selectedButton == 5" routerLinkActive = "list-item-active">
+    <img alt = "" src = "../../../assets/icons/managecompanies-icon.svg">
+    <h3>Manage Companies</h3>
+  </a>
+  <a mat-list-item [disableRipple]="true" routerLink = "manage-content" (click)="selectButton(6)" [class.selected]="selectedButton == 6" routerLinkActive = "list-item-active">
+    <img alt = "" src = "../../../assets/icons/managecontent-icon.svg">
+    <h3>Manage Content</h3>
+  </a>
+  <a mat-list-item [disableRipple]="true" routerLink = "manage-system" (click)="selectButton(8)" [class.selected]="selectedButton == 8" routerLinkActive = "list-item-active">
+    <img alt = "" src = "../../../assets/icons/managesystem-icon.svg">
+    <h3>Manage System</h3>
+  </a>
+</mat-nav-list>
+
+<mat-nav-list class = "sidebar-list" *ngIf="role == 3">
+  <a  *ngIf="ManageUsers" mat-list-item [disableRipple]="true"  routerLink="manage-users"  (click)="selectButton(2)" [class.selected]="selectedButton == 2" routerLinkActive = "list-item-active">
+    <img alt = "" src = "../../../assets/icons/manageusers-icon.svg">
+    <h3>Manage Users</h3>
+  </a>
+  <a  *ngIf="ManageProjects" mat-list-item [disableRipple]="true" routerLink="manage-projects"  (click)="selectButton(4)" [class.selected]="selectedButton == 4" routerLinkActive = "list-item-active">
+    <img alt = "" src = "../../../assets/icons/manageprojects-icon.svg">
+    <h3>Manage Projects</h3>
+  </a>
+  <a  *ngIf="ManageCompanies" mat-list-item [disableRipple]="true" routerLink = "manage-companies" (click)="selectButton(5)" [class.selected]="selectedButton == 5" routerLinkActive = "list-item-active">
+    <img alt = "" src = "../../../assets/icons/managecompanies-icon.svg">
+    <h3>Manage Companies</h3>
+  </a>
+  <a  *ngIf="ManageContent" mat-list-item [disableRipple]="true" routerLink = "manage-content" (click)="selectButton(6)" [class.selected]="selectedButton == 6" routerLinkActive = "list-item-active">
+    <img alt = "" src = "../../../assets/icons/managecontent-icon.svg">
+    <h3>Manage Content</h3>
+  </a>
+</mat-nav-list>
+

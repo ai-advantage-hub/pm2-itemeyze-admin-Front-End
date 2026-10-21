@@ -1,0 +1,289 @@
+.container {
+    width: 100%;
+}
+
+.wrapper {
+    height: 100%;
+}
+
+.row-pipe-1 {
+    padding-left: 20px;
+    padding-top: 15px;
+}
+
+.col-pipe-1 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.col-pipe-1 .heading {
+    display: flex;
+}
+
+.col-pipe-1 .heading-image {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.col-pipe-1 .main-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #444444;
+}
+
+.header-buttons {
+    display: flex;
+}
+
+.header-buttons .button-1 {
+    width: 155px;
+    height: 45px;
+    background-color: #8FC36A;
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    margin-right: 20px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.header-buttons .button-2 {
+    width: 211px;
+    height: 45px;
+    background-color: #E72E00;
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    margin-right: 20px;
+    font-weight: 600;
+    font-size: 16px;
+}
+.header-buttons .button-3 {
+    width: 211px;
+    height: 45px;
+    background-color: green;
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    margin-right: 20px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.col-pipe-2 {
+    width: 98%;
+    height: 400px;
+    margin-top: 20px;
+    display: flex;
+    border: 1px solid #CACACA;
+    border-radius: 10px;
+}
+
+.col-pipe-2 .personal-list {
+    width: 100%;
+}
+
+.col-pipe-2 .listing {
+    display: flex;
+}
+
+.list-heading {
+    background-color: #F1F1F1;
+    height: 46px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.list-heading h3 {
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+    padding: 10px 0 0 25px;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    margin-top: 30px;
+}
+
+a {
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    color: #E72E00 !important;
+    text-decoration: underline !important;
+    cursor: pointer;
+}
+
+.list-key {
+    padding-left: 25px;
+}
+
+.list-key li {
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+}
+
+.list-values {
+    margin-left: 50px;
+}
+
+.list-values li {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+}
+
+.list-values li.module {
+    white-space: nowrap;
+    display: flex;
+    gap: 5px;
+}
+
+/* Styling for modals starts */
+.delete-modal {
+    height: 246px;
+    width: 519px;
+  }
+
+  .deactivate-modal {
+    height: 246px;
+    width: 519px;
+  }
+
+  ::ng-deep .modal-footer {
+    border-top: none;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .btn.btn-danger {
+    width: 136px;
+    height: 45px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border-color: #444444 !important;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif,;
+    color: #444444;
+  }
+
+  .btn.btn-deactivate {
+    width: 211px;
+    height: 45px;
+    background-color: #E72E00;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif,;
+    color: #ffffff;
+  }
+
+  .btn.btn-delete {
+    width: 177px;
+    height: 45px;
+    background-color: #E72E00;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif,;
+    color: #ffffff;
+  }
+
+  .modal-text {
+    padding: 20px 20px 20px 20px;
+  }
+
+  .modal-text h3 {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+  }
+  // Styling for modal ends
+
+  @media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    .col-pipe-1 .main-heading {
+        font-size: 16px;
+    }
+    .header-buttons .button-1 {
+        width: 90px;
+        height: 45px;
+        font-size: 12px;
+    }
+    .header-buttons .button-2 {
+        width: 130px;
+        height: 45px;
+        font-size: 12px;
+    }
+    .col-pipe-2 {
+        height: 400px;
+    } 
+    .list-heading {
+        height: 46px;
+    }
+    .list-heading h3 {
+        font-size: 12px;
+    }
+    a {
+        font-size: 12px;
+    }
+    .list-key li {
+        font-size: 12px;
+    }
+    .list-values {
+        margin-left: 50px;
+    }
+    .list-values li {
+        font-size: 12px;
+    }
+    .delete-modal {
+        width: 500px;
+        height: 200px;
+    }
+    .deactivate-modal{
+        width: 500px;
+        height: 200px;
+    }
+    .btn.btn-danger {
+        width: 100px;
+        height: 30px;
+        font-size: 12px;
+    }
+    .btn.btn-delete {
+        width: 150px;
+        height: 30px;
+        font-size: 12px;
+    }
+    .btn.btn-deactivate {
+        width: 175px;
+        height: 30px;
+        font-size: 12px;
+    }
+    .modal-text {
+        padding: 15px 0px 15px 15px;
+    }
+    .modal-text h3 {
+        font-size: 14px;
+    }
+  }
+
+  

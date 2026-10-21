@@ -1,0 +1,428 @@
+.container {
+  width: 100%;
+}
+
+.wrapper {
+  height: 100%;
+}
+
+.row-pipe-1 {
+  padding-left: 20px;
+  padding-top: 15px;
+}
+
+.col-pipe-1 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.heading {
+  display: flex;
+}
+
+.col-pipe-1 .heading-image {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.col-pipe-1 .main-heading {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #444444;
+}
+
+.header-buttons {
+  display: flex;
+}
+
+.header-buttons .button-1 {
+  width: 150px;
+  height: 45px;
+  background-color: #8FC36A;
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  margin-right: 30px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.header-buttons .button-2 {
+  width: 124px;
+  height: 45px;
+  background-color: #E72E00;
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  margin-right: 30px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.header-buttons .button-3 {
+  width: 174px;
+  height: 45px;
+  background-color: #E72E00;
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  margin-right: 30px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.row-pipe-2 {
+  display: flex;
+  margin: 30px 40px 60px 40px;
+  border: 1px solid #CACACA;
+  border-radius: 10px;
+}
+
+.col-pipe-2 {
+  width: 50%;
+}
+
+.dummy-image {
+  margin: 5%;
+  width: 90%;
+}
+
+.col-pipe-3 {
+  width: 50%;
+}
+
+.project-info {
+  margin: 5%;
+}
+
+.listing {
+  display: flex;
+}
+
+.listing .list-l {
+  width: 50%;
+  margin-bottom: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  color: #444444;
+}
+
+.listing .list-r {
+  width: 50%;
+  word-break: break-all;
+  margin-left: 15px;
+  margin-bottom: 30px;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
+  color: #444444;
+}
+
+// ul {
+//     list-style: none;
+//     padding-left: 0;
+// }
+
+// .list-1 li {
+//     font-size: 16px;
+//     font-family: 'Montserrat', sans-serif;
+//     color: #444444;
+//     font-weight: 600;
+//     margin-bottom: 25px;
+// }
+
+// .list-2 {
+//     width: 70%;
+//     text-align: justify;
+// }
+
+// .list-2 li {
+//     font-size: 16px;
+//     font-family: 'Montserrat', sans-serif;
+//     color: #444444;
+//     font-weight: 400;
+//     margin-bottom: 25px;
+//     padding-left: 30px;
+//     word-break: break-all;
+// }
+
+// .project-info {
+//     display: flex;
+//     margin: 5%;
+// }
+
+.details {
+  margin: 5%;
+  text-align: justify;
+}
+
+.details span {
+  color: #E72E00;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+}
+
+.head {
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  color: #444444;
+  font-weight: 600;
+  margin: 0 0 5px;
+
+  & span {
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+.para {
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  color: #444444;
+  font-weight: 400;
+  white-space: break-spaces;
+  width: 100%;
+  height: 125px;
+  background-color: #f3f3ff;
+  outline: none;
+  margin-bottom: 20px;
+  padding: 15px;
+  border: none;
+  resize: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  cursor: default !important;
+}
+
+::-webkit-scrollbar-track {
+  // box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #999999;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: grey;
+}
+
+.dummy-audio {
+  margin-bottom: 50px;
+}
+
+/* Styling for delete project modal and delete file modal starts */
+.delete-modal {
+  min-height: 246px;
+  width: 519px;
+}
+
+::ng-deep .modal-footer {
+  border-top: none;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.btn-danger {
+  width: 136px;
+  height: 45px;
+  outline: none;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border-color: #444444 !important;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif, ;
+  color: #444444;
+}
+
+.btn.btn-delete {
+  width: 218px;
+  height: 45px;
+  background-color: #E72E00;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif, ;
+  color: #ffffff;
+}
+
+.modal-text {
+  padding: 20px 20px 20px 20px;
+}
+
+//   .modal-text h3 {
+//     font-size: 18px;
+//     font-weight: 500;
+//     font-family: 'Montserrat', sans-serif;
+//     color: #444444;
+//   }
+/* Styling for delete project modal and delete file modal ends */
+::ng-deep {
+
+  .mat-slider-horizontal .mat-slider-track-fill,
+  .mat-slider-thumb {
+    background-color: whitesmoke !important;
+  }
+
+  .ngx-d-flex {
+    background-color: teal;
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+  .delete-modal {
+    width: 500px;
+    height: 200px;
+  }
+
+  .btn.btn-danger {
+    width: 100px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .btn.btn-delete {
+    width: 150px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .modal-text {
+    padding: 15px 0px 15px 15px;
+  }
+
+  .modal-text h3 {
+    font-size: 14px;
+  }
+}
+
+.modal-head {
+  color: #444444;
+  font-size: 16px;
+  margin-bottom: 0px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.form-control {
+  height: 137px;
+  width: 100%;
+  background-color: #F1F1F1;
+  color: #444444;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+/* Styling for restore modal starts */
+.restore-modal {
+  height: 246px;
+  width: 519px;
+}
+
+::ng-deep .modal-footer {
+  border-top: none;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.btn.btn-danger {
+  width: 136px;
+  height: 45px;
+  outline: none;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border-color: #444444 !important;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif, ;
+  color: #444444;
+}
+
+.btn.btn-restore {
+  width: 218px;
+  height: 45px;
+  background-color: #8FC36A;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif, ;
+  color: #ffffff;
+}
+
+.modal-text {
+  padding: 20px 20px 20px 20px;
+}
+
+.modal-text h3 {
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  color: #444444;
+}
+
+/* Styling for restore modal ends */
+
+.secondary-text {
+  margin: auto 5%
+}
+
+.img-container {
+  width: 100%;
+  // border: 1px solid grey;
+  margin: 4%;
+}
+
+.img-one,
+.img-two {
+  width: 70%;
+}
+
+.img-one,
+.img-two {
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.img-two >label {
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  color: #444444;
+}
+
+::ng-deep .custom-ng-select.ng-select.ng-select-single .ng-select-container{
+    width: auto !important;
+    height: 60px !important;
+      border: none !important;
+      border-radius: 10px;
+      outline: none;
+      background-color: #f1f1f1;
+      padding-left: 10px;
+      font-size: 14px;
+      font-weight: 400;
+      font-family: "Montserrat", sans-serif;
+      color: #444444;
+}

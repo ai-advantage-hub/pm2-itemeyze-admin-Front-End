@@ -1,0 +1,47 @@
+.container {
+    text-align: center;
+    padding-top: 50px;
+}
+
+.user-image {
+    border-radius: 50%;
+}
+
+.user-image img {
+    width: 224px;
+    height: 224px;
+}
+
+.user-name {
+    margin-top: 30px;
+}
+
+.user-name h3 {
+    font-size: 32px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.user-email h3 {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    color:rgba(0, 0, 0, 0.63)
+}
+
+.edit-button {
+    margin-top: 60px;
+}
+
+.btn.btn-primary {
+    width: 171px;
+    height: 45px;
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+    background-color: #8FC36A;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+}

@@ -1,0 +1,16 @@
+<div class = "container">
+    <div class = "user-info">
+        <div class = "user-image">
+            <img alt = "" [src] ="imagePath(data?.profile_pic)" style="border-radius: 50%;">
+        </div>
+        <div class = "user-name">
+            <h3>{{data?.full_name}}</h3>
+        </div>
+        <div class = "user-email">
+            <h3>{{data?.email}}</h3>
+        </div>
+    </div>
+    <div class = "edit-button">
+        <button routerLink="/pages/edit-profile" class = "btn btn-primary">Edit Profile</button>
+    </div>
+</div>

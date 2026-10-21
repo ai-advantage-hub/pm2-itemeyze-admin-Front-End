@@ -1,0 +1,150 @@
+<div class="container mt-2">
+  <div class="wrapper">
+    <div class="row-pipe-1">
+      <div class="col-pipe-1">
+        <div class="heading">
+          <img
+            (click)="back()"
+            class="heading-image"
+            alt=""
+            src="../../../assets/icons/arrow-back-icon.svg"
+          />
+          <div class="main-heading">Files Requests</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row-pipe-2">
+  <table aria-describedby="">
+    <tr class="table-header">
+      <!-- <th style="text-align: left; width: 20%">S.No.</th> -->
+      <th scope="col" style="text-align: left; width: 20%">File Name</th>
+      <th scope="col" style="width: 20%">Image</th>
+      <th scope="col" style="width: 30%">Date Created</th>
+      <th scope="col" style="width: 30%">Action</th>
+    </tr>
+    <tr
+      class="table-row"
+      *ngFor="
+        let i of items
+          | paginate : { itemsPerPage: itemsPerPage, currentPage: currentPage };
+          let s = index"
+    >
+      <!-- <td style="text-align: left;padding-left: 45px;">{{ s + 1 }}</td> -->
+      <td style="text-align: left">{{ i?.file_name  ? i?.file_name : "NA"}}</td>
+      <td>
+        <img
+          class="file-image"
+          alt=""
+          [src]="getUrl(i?.thumbnail)"
+        />
+      </td>
+      <td>{{ i?.created_at ? (i?.created_at | date : 'dd MMM yyyy') : "NA" }}</td>
+      <td>
+        <a class="approve-link" (click)="approveFiles(1,i?.id)">Approve</a>
+        <a class="deny-link" (click)="openDenyModal()">Deny</a>
+        <a
+          class="view-link"
+         (click)=" goToView(i?.id)"
+          >View</a
+        >
+      </td>
+<!-- Deny File Request Modal starts -->
+<ng-template #denyModal let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content deny-modal">
+      <form (ngSubmit)="approveFiles(2,i?.id)" class="">
+        <div class="modal-title">Deny Request</div>
+        <div class="modal-text">
+          <h3>Are you sure you want to deny the request?</h3>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="hideDenyModal()"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-delete">Deny Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Deny File Request Modal ends -->
+    </tr>
+  </table>
+  <div class="nodata" style="text-align: center; margin-top: 10px" *ngIf="items.length == 0">
+    <p>No Data Found</p>
+  </div>
+  <div class="text-right">
+    <p class="page-text">
+      Showing {{ getShownEntriesRange() }} of {{ items.length }} entries
+    </p>
+    <pagination-controls
+      (pageChange)="currentPage = $event"
+    ></pagination-controls>
+  </div>
+</div>
+
+<!-- Approve File Request Modal starts -->
+<!-- <ng-template #approveModel let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content rem">
+      <form [formGroup]="fileRequestForm" class="file-info">
+        <div class="file-title">
+          <label
+            >File Title
+            <span class="necessary">*</span>
+          </label>
+          <input
+            type="text"
+            formControlName="file_name"
+            required
+            placeholder="Enter Text Here"
+          />
+          <span *ngIf="fileRequestForm.get('file_name').errors?.required && fileRequestForm.get('file_name').touched"
+          class="val-error">Please enter file title</span>
+          <img *ngIf="fileRequestForm.get('file_name').errors?.required && fileRequestForm.get('file_name').touched" class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+        </div>
+        <div class="file-number">
+          <label
+            >File Number
+            <span class="necessary">*</span>
+          </label>
+          <input
+            type="number"
+            formControlName="file_number"
+            required
+            placeholder="Enter Text Here"
+          />
+          <span *ngIf="fileRequestForm.get('file_number').errors?.required && fileRequestForm.get('file_number').touched"
+          class="val-error">Please enter file number</span>
+          <img *ngIf="fileRequestForm.get('file_number').errors?.required && fileRequestForm.get('file_number').touched" class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+        </div>
+        <div class="assign-to">
+          <label>Assign To</label>
+          <input type="email" placeholder="Enter Email Address" />
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="hide()"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="btn btn-approve"
+          >
+            Approve
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template> -->
+<!-- Approve File Request Modal ends -->

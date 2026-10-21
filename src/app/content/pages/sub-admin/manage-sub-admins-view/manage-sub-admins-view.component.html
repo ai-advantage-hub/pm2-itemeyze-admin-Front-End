@@ -1,0 +1,95 @@
+<div class="container mt-2">
+    <div class="wrapper">
+      <div class="row-pipe-1">
+        <div class="col-pipe-1">
+          <div class="heading">
+            <img routerLink="../../manage-sub-admins" class="heading-image" alt="" src="../../../assets/icons/arrow-back-icon.svg">
+            <div class="main-heading">View Sub Admin Details</div>
+          </div>
+          <div class="header-buttons">
+            <button class="button-1"  (click)="goToEdit(2)">Edit User</button>
+            <button class="button-2" *ngIf="role == 1" (click)="openDeactivateUserModal()">Deactivate User</button>
+            <button class="button-2" *ngIf="role == 2" (click)="openDeactivateUserModal()">Activate User</button>
+          </div>
+        </div>
+        <div class="col-pipe-2">
+            <div class="personal-list">
+              <div class="list-heading">
+                <h3>Personal Details</h3>
+              </div>
+              <div class="listing">
+              <ul class="list-key">
+                <li>Name of User:</li>
+                <li>Email Address:</li>
+                <li>Phone Number:</li>
+                <li>Date of Joining:</li>
+                <li style="margin-bottom: 40px;">Modules Accessible:</li>
+                <a (click)="openDeleteUserModal()">Delete User</a>
+              </ul>
+              <ul class="list-values">
+                <li>{{data?.full_name ? data?.full_name : "NA"}}</li>
+                <li>{{data?.email ? data?.email :"NA"}}</li>
+                <li>{{data?.phone_number ? data?.phone_number : "NA"}}</li>
+                <li>{{data?.created_at ? (data?.created_at | date : 'dd-MMM-yyyy')  :"NA"}}</li>
+                <li class="module"><p *ngFor="let data of data?.modules_accessible; let last = last" style="margin-bottom: 3px;">{{data}}{{ !last ? ', ' : '' }}</p></li>
+              </ul>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deactivate User Modal starts -->
+<ng-template #deactivateUserModal let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content deactivate-modal">
+      <form class="">
+        <div class="modal-title" *ngIf="role == 1">Deactivate User</div>
+        <div class="modal-title" *ngIf="role == 2">Activate User</div>
+        <div class="modal-text">
+          <h3 *ngIf="role == 1">Are you sure you want to deactivate the user?</h3>
+          <h3 *ngIf="role == 2">Are you sure you want to activate the user?</h3>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="hideDeactivateUserModal()"
+          >
+
+            Cancel
+          </button>
+          <button type="submit"  *ngIf="role == 1" class="btn btn-deactivate" (click)="statusChange(2)">Deactivate User</button>
+          <button type="submit"  *ngIf="role == 2" class="btn btn-deactivate" (click)="statusChange(1)">Activate User</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Deactivate User Modal ends -->
+
+<!-- Delete User Modal starts -->
+<ng-template #deleteUserModal let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content delete-modal">
+      <form class="">
+        <div class="modal-title">Delete User</div>
+        <div class="modal-text">
+          <h3>Are you sure you want to delete the user?</h3>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="hideDeleteUserModal()"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-delete" (click)="deleteUser()">Delete User</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Delete User Modal ends -->

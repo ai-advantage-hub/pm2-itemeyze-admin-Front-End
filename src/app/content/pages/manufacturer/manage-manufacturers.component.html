@@ -1,0 +1,117 @@
+<div class="container mt-2">
+  <div class="wrapper">
+    <div class="row-pipe-1">
+      <div class="col-pipe-1">
+        <div class="heading">
+          <div class="main-heading">Manufacturers Listing</div>
+        </div>
+        <div class="header-buttons">
+          <button class="button-1" (click)="openAddCompanyModel(1)">Add New Manufacturer</button>
+        </div>
+      </div>
+      <div class="col-pipe-2">
+        <input type="text" name="searchField" [formControl]="searchField" class="search-bar"
+          placeholder="Search" />
+        <img alt="" class="search-img" src="../../../assets/icons/search-icon.svg" />
+        <select [(ngModel)]="filter" (change)="filterForStatus($event.target.value,searchField.value)">
+          <option disabled value="">Created By</option>
+          <option value=0>All</option>
+          <option value=2>User</option>
+          <option value=1>Admin</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row-pipe-2">
+  <table aria-describedby="">
+    <tr class="table-header">
+      <!-- <th style="text-align: left; width: 10%">S.No.</th> -->
+      <th scope="col"></th>
+      <th scope="col" style="text-align: left; width: 30%">Manufacturer Name</th>
+      <th scope="col" style="width: 30%">Added By</th>
+      <th scope="col" style="width: 30%">Files Count</th>
+      <th scope="col" style="width: 40%">Action</th>
+    </tr>
+    <tr class="table-row" *ngFor="
+          let i of items
+            | paginate : { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: count };
+            let s = index">
+      <!-- <td style="text-align: left;padding-left: 45px;">{{ s + 1 }}</td> -->
+      <td style="text-align: left">
+        <span *ngIf="!i.is_read">
+          <img alt="" src="assets/icons/red.svg">
+        </span>
+      </td>
+      <td style="text-align: left">
+        {{ i.name ? i.name : "NA" }}</td>
+      <td>
+        <span *ngIf="i?.added_by == 2">User</span>
+        <span *ngIf="i?.added_by == 1">Admin</span>
+      </td>
+      <td>{{ i.num_files ? i.num_files : "NA" }}</td>
+      <td>
+        <a class="edit-link" (click)="openeditCompanyModel(2, i?.id, i?.name)">Edit</a>
+        <a class="delete-link" (click)="opendeleteCompanyModel(i?.id)">Delete</a>
+        <a class="view-link" (click)="goToView(i?.id)">View</a>
+      </td>
+    </tr>
+  </table>
+  <div *ngIf="count == 0" class="nodata">
+    <p>No Data Found</p>
+  </div>
+  <div *ngIf="count > 0" class="pagination">
+    <div class="user-img"><img src="assets/icons/red.svg" alt="">Manufacturer Added by User</div>
+    <div class="pagination-2">
+      <p class="page-text">
+        Showing {{ getShownEntriesRange() }} of {{ count }} entries
+      </p>
+      <pagination-controls (pageChange)="onPageChange($event,searchField.value)"></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<!-- add -->
+<ng-template #addNewManufacturerModal let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content add-modal">
+      <form [formGroup]="addManufacturerForm" class="">
+        <div class="modal-title" *ngIf="role == 1">Add New Manufacturer Name</div>
+        <div class="modal-title" *ngIf="role == 2">Edit Manufacturer Name</div>
+        <div class="input-form">
+          <label class="input-label">Manufacturer Name</label>
+          <input class="enter" type="text" placeholder="Enter Text Here" formControlName="name" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="hideAddModal()">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-save" *ngIf="role == 1" (click)="addData()">Save</button>
+          <button type="submit" class="btn btn-save" *ngIf="role == 2" (click)="editData()">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Delete Action Modal starts -->
+<ng-template #deleteManufracrtureModal let-modal style="left: 20%;">
+  <div class="modal-body text-center">
+    <div class="modal-content delete-modal">
+      <form class="">
+        <div class="modal-title">Delete Manufacturer</div>
+        <div class="modal-text">
+          <h3 style="text-align: left;">Are you sure you want to delete the Manufacturer?</h3>
+          <p style="text-align: left;">Note : The manufacturer will get permanently deleted from the Database</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="hideDeleteModal()">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-delete" (click)="deleteManufacturer()">Delete Manufacturer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Delete Action Modal ends -->

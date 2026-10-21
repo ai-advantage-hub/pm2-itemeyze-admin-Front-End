@@ -1,0 +1,123 @@
+<div class="container mt-2">
+  <div class="wrapper">
+    <div class="row-pipe-1">
+      <div class="col-pipe-1">
+        <div class="main-heading">Companies Listing</div>
+        <button (click)="openAddCompanyModel()">Add New Company</button>
+      </div>
+      <div class="col-pipe-2">
+        <input type="text" [formControl]="searchField" class="search-bar" placeholder="Search" />
+        <img alt="" class="search-img" src="../../../assets/icons/search-icon.svg" />
+        <select [(ngModel)]="filter" (change)="filterForStatus($event.target.value,searchField.value)">
+          <option value="">All</option>
+          <option value="true">Active</option>
+          <option value="false">Inactive</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row-pipe-2">
+  <table aria-describedby="">
+    <tr class="table-header">
+      <!-- <th style="text-align: left; width: 15%">S.No.</th> -->
+      <th scope="col" style="text-align: left; width: 25%">Company</th>
+      <th scope="col" style="width: 10%">Users</th>
+      <th scope="col" style="width: 20%">Status</th>
+      <th scope="col" style="width: 30%">Action</th>
+    </tr>
+    <tr class="table-row" *ngFor="
+        let i of items
+          | paginate : { itemsPerPage:  itemsPerPage, currentPage: currentPage, totalItems: count };
+          let s = index">
+      <!-- <td style="text-align: left;padding-left: 45px;">{{ s + 1 }}</td> -->
+      <td style="text-align: left;">{{ i.name ? i.name : "NA" }}</td>
+      <td>{{ i.num_users }}</td>
+      <td>
+        <label class="toggle">
+          <input type="checkbox" [checked]="i?.is_active" (click)="changeStatus(i?.id, i?.is_active,searchField.value)" />
+          <span class="slider"></span>
+        </label>
+      </td>
+      <td>
+        <a class="edit-link" (click)="openEditModal(i.name, i.id)">Edit</a>
+        <!-- <a class="delete-link" (click)="openDeleteModal(i.id)">Delete</a> -->
+        {{ i.action }}
+      </td>
+    </tr>
+  </table>
+  <div *ngIf="count == 0" class="nodata">
+    <p>No Data Found</p>
+  </div>
+  <div *ngIf="count > 0" class="text-right">
+    <p class="page-text">
+      Showing {{ getShownEntriesRange() }} of {{ count }} entries
+    </p>
+    <pagination-controls (pageChange)="onPageChange($event,searchField.value)"></pagination-controls>
+  </div>
+</div>
+
+<!--Add New Company Modal starts -->
+<ng-template #addNewCompanyModal let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content add-modal">
+      <form [formGroup]="addCompanyForm" (ngSubmit)="addNewCompany()" class="">
+        <div class="modal-title">Add New Company</div>
+        <div class="input-form">
+          <label class="input-label">Company Title</label>
+          <input class="enter" type="text" placeholder="Enter Text Here" formControlName="company_title" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="hideAddModal()">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-save">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!--Add New Company Modal ends -->
+
+<!-- Edit Action Modal starts -->
+<ng-template #editCompanyModal let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content edit-modal">
+      <form [formGroup]="editCompanyForm" (ngSubmit)="editCompanyName()" class="">
+        <div class="modal-title">Edit Company</div>
+        <div class="input-form">
+          <label class="input-label">Company Title</label>
+          <input class="enter" type="text" placeholder="Enter Text Here" formControlName="company_title" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="hideEditModal()">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-update">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Edit Action Modal ends -->
+
+<!-- Delete Action Modal starts -->
+<ng-template #deleteCompanyModal let-modal style="left: 20%;">
+  <div class="modal-body text-center">
+    <div class="modal-content delete-modal">
+      <form (ngSubmit)="deleteCompanyName()" class="">
+        <div class="modal-title">Delete Company</div>
+        <div class="modal-text">
+          <h3>Are you sure you want to delete the company?</h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="hideDeleteModal()">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-delete">Delete Company</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Delete Action Modal ends -->

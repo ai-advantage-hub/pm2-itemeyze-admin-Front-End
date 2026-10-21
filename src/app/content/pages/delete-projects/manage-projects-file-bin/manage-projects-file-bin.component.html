@@ -1,0 +1,184 @@
+<div class="container mt-2">
+  <div class="wrapper">
+    <div class="row-pipe-1">
+      <div class="col-pipe-1">
+        <div class="heading">
+          <img (click)="goBack()" class="heading-image" alt="" src="../../../assets/icons/arrow-back-icon.svg" />
+          <div class="main-heading">
+
+            <button class="button-1 notification-btn">
+              <span class="notification-badge">{{disapproved_files_count}}</span>
+              Disapproved Files
+            </button>
+            &nbsp;
+            <button class="button-2 notification-btn" (click)="goToMarkedBin()">
+              <span class="notification-badge">{{filecount}}</span>
+              Marked for Deletion
+            </button>
+            &nbsp;
+            <!-- <button class="button-1">Disapproved Files</button>
+            <div class="notification">
+              <span class="count">{{disapproved_files_count}}</span>
+            </div> -->
+
+            <!-- <button class="button-2" (click)="goToMarkedBin()">Marked for Deletion</button>
+            <div class="notification notification-mark">
+              <span class="count">{{filecount}}</span>
+            </div> -->
+            <button class="button-3 notification-btn" (click)="goToDeleteBin()">
+              <span class="notification-badge">{{deletedFiles}}</span>
+              Deleted Files</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row-pipe-2">
+  <table aria-describedby="">
+    <tr class="table-header">
+      <!-- <th style="text-align: left; width: 20%">S.No.</th> -->
+      <th scope="col" style="text-align: left; width: 20%">File Name</th>
+      <th scope="col" style="width: 20%">Image</th>
+      <th scope="col" style="width: 30%">Disapproved Status</th>
+      <th scope="col" style="width: 30%">Disapproved On</th>
+      <th scope="col" style="width: 30%">Action</th>
+    </tr>
+    <tr class="table-row" *ngFor="
+          let i of items
+            | paginate : { itemsPerPage: itemsPerPage, currentPage: currentPage };
+            let s = index">
+      <td style="text-align: left">{{ i?.file_name ? i?.file_name :"NA"}}</td>
+      <td>
+        <img class="file-image" alt="" [src]="getUrl(i?.thumbnail)" />
+      </td>
+      <td [ngStyle]="{color: i?.disapproved_status === 1?'#F29339':'green'}">{{ i?.disapproved_status === 1 ? 'Pending' : (i?.disapproved_status === 2 ? 'Resubmission' : '') }}
+      </td>
+      <td>{{ i?.disapproved_on ? (i?.disapproved_on | date : 'dd-MMM-yyyy') : "NA"}}</td>
+      <td>
+        <a class="approve-link" (click)="openDenyModal(i?.id, 1)">Approve</a>
+        <a class="view-link" (click)=" goToViewFile(i?.id)">View</a>
+        <a class="deny-link" (click)="openDeleteModal(i?.id)">Delete</a>
+        <a class="deny-link delete" (click)="openDenyModal(i?.id, 2)" [ngClass]="{'disabled': i?.disapproved_status === 1 }" >Deny</a>
+      </td>
+      <!-- Deny File Modal starts -->
+      <ng-template #denyModal let-modal>
+        <div class="modal-body text-center">
+          <div class="modal-content deny-modal">
+            <form class="">
+              <div class="modal-title" *ngIf="role == 2">Deny File</div>
+              <div class="modal-title" *ngIf="role == 1">Approve File</div>
+              <div class="modal-text">
+                <h3 *ngIf="role == 2">Are you sure you want to deny the file?</h3>
+                <h3 *ngIf="role == 1">Are you sure you want to approve the file?</h3>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="hideDenyModal()">
+                  Cancel
+                </button>
+                <button type="submit" *ngIf="role == 2" class="btn btn-delete" (click)="changeStatus()">Deny
+                  File</button>
+                <button type="submit" *ngIf="role == 1" class="btn btn-approve" (click)="changeStatus()">Approve
+                  File</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </ng-template>
+      <!-- Deny File Modal ends -->
+    </tr>
+  </table>
+
+
+  <div class="nodata" style="text-align: center; margin-top: 10px" *ngIf="items.length == 0">
+    <p>No Data Found</p>
+  </div>
+  <div class="text-right" *ngIf="items.length > 0">
+    <p class="page-text">
+      Showing {{ getShownEntriesRange() }} of {{ items.length }} entries
+    </p>
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+  </div>
+</div>
+
+
+<!-- Delete File Modal starts -->
+<ng-template #deleteFileModal let-modal>
+  <div class="modal-body text-center">
+    <div class="modal-content delete-modal">
+      <form (ngSubmit)="deleteFiles()" class="">
+        <div class="modal-title">Delete File</div>
+        <div class="modal-text">
+          <h3>Are you sure you want to delete the file?</h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="hideDeleteFileModal()">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-delete">Delete File</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Delete File Modal ends -->
+
+<!-- Approve File Modal starts -->
+<!-- <ng-template #approveModel let-modal>
+    <div class="modal-body text-center">
+      <div class="modal-content rem">
+        <form [formGroup]="fileRequestForm" class="file-info">
+          <div class="file-title">
+            <label
+              >File Title
+              <span class="necessary">*</span>
+            </label>
+            <input
+              type="text"
+              formControlName="file_name"
+              required
+              placeholder="Enter Text Here"
+            />
+            <span *ngIf="fileRequestForm.get('file_name').errors?.required && fileRequestForm.get('file_name').touched"
+            class="val-error">Please enter file title</span>
+            <img *ngIf="fileRequestForm.get('file_name').errors?.required && fileRequestForm.get('file_name').touched" class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+          </div>
+          <div class="file-number">
+            <label
+              >File Number
+              <span class="necessary">*</span>
+            </label>
+            <input
+              type="number"
+              formControlName="file_number"
+              required
+              placeholder="Enter Text Here"
+            />
+            <span *ngIf="fileRequestForm.get('file_number').errors?.required && fileRequestForm.get('file_number').touched"
+            class="val-error">Please enter file number</span>
+            <img *ngIf="fileRequestForm.get('file_number').errors?.required && fileRequestForm.get('file_number').touched" class="val-image" alt="" src="../../../../assets/icons/validation-triangle.svg">
+          </div>
+          <div class="assign-to">
+            <label>Assign To</label>
+            <input type="email" placeholder="Enter Email Address" />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="hide()"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="btn btn-approve"
+            >
+              Approve
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template> -->
+<!-- Approve File Modal ends -->

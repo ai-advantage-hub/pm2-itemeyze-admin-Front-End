@@ -1,0 +1,42 @@
+.system-bg {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-self: center;
+    width: 60%;
+    margin: 100px auto;
+
+}
+.system-name .form-control {
+    width: 80%;
+    height: 63px;
+    padding-left: 30px;
+    outline: none;
+    background-color: #F1F1F1;
+    border: none;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+    margin-top: 10px;
+}
+.system-name .form-control:focus {
+    border-color: #F1F1F1;
+    box-shadow: none;
+    color: none;
+}
+button.btn.btn-primary {
+    width: 30%;
+    height: 45px;
+    border-radius: 10px;
+    border-color: #8FC36A;
+    background-color: #8FC36A;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    margin-top: 20px;
+}
+.label {
+
+}

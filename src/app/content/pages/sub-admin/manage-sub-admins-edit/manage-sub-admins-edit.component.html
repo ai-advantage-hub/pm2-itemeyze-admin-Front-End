@@ -1,0 +1,49 @@
+<div class="container mt-2">
+    <div class="wrapper">
+      <div class="row-pipe-1">
+        <div class="col-pipe-1">
+          <div class="heading">
+            <img routerLink="../../manage-sub-admins-view" class="heading-image" alt="" src="../../../assets/icons/arrow-back-icon.svg">
+            <div class="main-heading">Edit Sub Admin</div>
+          </div>
+        </div>
+      </div>
+      <div class="row-pipe-2">
+        <form class="col-pipe-3">
+            <div class="input-form">
+              <img class="icons" alt="" src="../../../../assets/icons/user-icon.svg">
+              <input class="form-control" type="text" placeholder="Sub Admin Full Name">
+              <br>
+              <img class="icons" alt="" src="../../../../assets/icons/mailicon.svg">
+              <input class="form-control" type="email" placeholder="Email Address">
+              <br>
+              <img class="icons" alt="" src="../../../../assets/icons/phone-icon.svg">
+              <input class="form-control" type="number" placeholder="Phone Number">
+              <br>
+              <img class = "icons" alt="" src = "../../../assets/icons/lock-icon.svg" style="width: 60px;">
+              <input class="form-control" type = "{{ showPassword ? 'text' : 'password' }}" placeholder = "Temporary Password" />
+              <img class = "image-2" *ngIf="!showPassword" alt="" src = "../../../assets/icons/show-password-eye-icon.svg" (click)="togglePasswordVisibility()">
+              <img class = "image-3" *ngIf="showPassword" alt="" src = "../../../assets/icons/hide-password-eye-icon.svg" (click)="togglePasswordVisibility()">
+            </div>
+            <div class="checkboxes">
+              <div class="checkboxes-heading">Modules Accessible</div>
+              <div class="checkbox-list">
+                <input type="checkbox" class="checkbox" id="checkbox1">
+                <label for="checkbox1">Manage Users</label>
+                <br>
+                <input type="checkbox" class="checkbox" id="checkbox2">
+                <label for="checkbox2">Manage Content</label>
+                <br>
+                <input type="checkbox" class="checkbox" id="checkbox3">
+                <label for="checkbox3">Manage Projects</label>
+                <br>
+                <input type="checkbox" class="checkbox" id="checkbox4">
+                <label for="checkbox3">Manage Companies</label>
+              </div>
+              <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </form>
+      </div>
+    </div>
+</div>
+

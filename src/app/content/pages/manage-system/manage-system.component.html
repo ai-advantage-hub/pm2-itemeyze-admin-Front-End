@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <div class="system-bg">
+        <form [formGroup]="versionForm">
+            <div class="system-name">
+                <label>Minimum IOS Build Version</label>
+                <input class="form-control" formControlName="ios_name" type="text" style="border: none;outline: none;"
+                   />
+                   <button type="submit" class="btn btn-primary" (click)="iosBuild()"
+                   >Change Build Version</button>
+              </div>
+              
+              <div class="system-name mt-5" >
+                <label>Minimum Andriod Build Version</label>
+                <input class="form-control"  formControlName="android_name" type="text" style="border: none;outline: none;"
+                  />
+                  <button type="submit"  class="btn btn-primary" (click)="androidBuild()"
+                  >Change Build Version</button>
+              </div>
+        
+        </form>
+    </div>
+</div>

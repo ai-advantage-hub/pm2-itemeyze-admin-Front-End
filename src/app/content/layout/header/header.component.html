@@ -1,0 +1,42 @@
+<mat-toolbar>
+  <mat-toolbar-row class="justify-content-between">
+    <h1 class="header-heading">{{ title }}</h1>
+    <!-- <div *ngIf="!isSelectedPath()">
+      <input
+        type="text"
+        class="search-bar"
+        placeholder="Search"
+      />
+      <img
+        alt=""
+        class="search-img"
+        src="../../../assets/icons/search-icon.svg"
+      />
+    </div> -->
+    <div class="row-mr-2 ml-auto">
+      <ul>
+        <li>
+          <button mat-button [matMenuTriggerFor]="menu" class="user mt-2 d-flex align-items-center">
+            <img alt="" [src]="imagePath(data?.profile_pic)" class="user-image mr-1 p-2"
+              style="border-radius: 50%;width: 60px;" />
+            <!-- <img
+              alt=""
+              [src] = "'../../../assets/images/dummyuser-image.svg '"
+              class="user-image mr-1 p-2"
+            /> -->
+            {{data?.full_name}}
+            <mat-icon class="user-image-icon ml-1">keyboard_arrow_down</mat-icon>
+          </button>
+
+          <mat-menu #menu="matMenu" class="menu-card">
+            <div>
+              <button mat-menu-item (click)="goToProfile()">Profile</button>
+              <button mat-menu-item (click)="goToPassword()">Change Password</button>
+              <button (click)="logout()" mat-menu-item>Logout</button>
+            </div>
+          </mat-menu>
+        </li>
+      </ul>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

@@ -1,0 +1,121 @@
+<div class="container mt-2">
+  <div class="wrapper">
+    <div class="row-pipe-1">
+      <div class="col-pipe-1">
+        <div class="heading">
+          <img routerLink="../../manage-users" class="heading-image" alt=""
+            src="../../../assets/icons/arrow-back-icon.svg">
+          <div class="main-heading">Requests Listing</div>
+        </div>
+        <div class="filter">
+          <select [(ngModel)]="filter" (change)="filterForStatus($event.target.value)">
+            <option disabled selected value=0>Request Type</option>
+            <option value=1>New Requests</option>
+            <option value=2>Edit Requests</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row-pipe-2">
+  <table aria-describedby="">
+    <tr class="table-header">
+      <!-- <th style="width: 10%">S.No.</th> -->
+      <th scope="col" style="width: 10%">Picture</th>
+      <th scope="col" style="text-align: left; width: 20%">User Name</th>
+      <th scope="col" style="width: 15%">Company</th>
+      <th scope="col" style="width: 25%">Email ID</th>
+      <th scope="col" style="width: 10%">Approve</th>
+      <th scope="col" style="width: 10%">Deny</th>
+    </tr>
+    <tr class="table-row" *ngFor="
+          let i of items
+            | paginate : { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: count };
+            let s = index">
+      <!-- <td style="text-align: left;padding-left: 45px;">{{ s + 1 }}</td> -->
+      <td>
+        <img alt="" [src]="imagePath(i?.profile_pic)" style="width: 40px;border-radius: 50%; height: 40px;">
+      </td>
+      <td style="text-align: left">{{ i?.full_name ? i?.full_name: "NA" }}</td>
+      <td>{{ i?.company_name ? i?.company_name : i?.user_company__company__name }}</td>
+      <td>{{ i?.email ? i?.email: "NA" }}</td>
+      <td (click)="openApproveModal(i?.full_name,(i?.company_name ? i?.company_name : i?.user_company__company__name), i?.id)">
+        <img alt="" src="../../../../assets/icons/approve-icon.svg" style="cursor: pointer;">
+      </td>
+      <td (click)="openDenyModal(i?.id)">
+        <img alt="" src="../../../../assets/icons/deny-icon.svg" style="cursor: pointer;">
+      </td>
+
+      <!-- Approve Modal starts -->
+      <ng-template #approveModel let-modal>
+        <div class="modal-body text-center">
+          <div class="modal-content approve-modal">
+            <form [formGroup]="approveForm" class="project-info">
+              <div class="modal-title">Approve Request</div>
+              <div class="username-title">
+                <label class="input-label">User Name</label>
+                <input readonly class="enter" type="text" placeholder="Enter Text Here"
+                  style="background-color: #CECECE;" formControlName="user_name" />
+              </div>
+              <div class="assign-to">
+                <label class="input-label">Company Name</label>
+                <!-- <input type="text" [(ngModel)]="searchCompany" (keyup)="onSearch()" formControlName="company_name"
+                  placeholder="Enter Company Name">
+                <ul class="list-group">
+                  <li *ngFor="let data of companyArray" (click)="selectName(data?.name, data?.id)"
+                    class="list-group-item list-group-item-action">{{data.name}}</li>
+                </ul> -->
+                <ng-select [(ngModel)]="searchCompany" formControlName = "company_name" >
+                  <ng-option *ngFor="let i of companyArr" [value]="i.name">{{i.name}}</ng-option>
+               </ng-select>
+                <div class="val-error" *ngIf="approveForm.get('company_name').hasError('companyNotFound')">
+                  Company Name doesn't exist.
+                </div>
+                <img *ngIf="approveForm.get('company_name').hasError('companyNotFound')" class="val-image" alt=""
+                  src="../../../assets/icons/validation-triangle.svg">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="hide()">Cancel</button>
+                <button type="submit" class="btn btn-approve" [disabled]="approveForm.invalid" (click)=" approveUser()">Approve</button>
+              </div>
+           </form>
+         </div>
+        </div>
+      </ng-template>
+
+      <!-- Approve Modal ends -->
+
+      <!-- Deny Modal starts -->
+      <ng-template #denyModal let-modal>
+        <div class="modal-body text-center">
+          <div class="modal-content deny-modal">
+            <form (ngSubmit)="denyUser(2)" class="">
+              <div class="modal-title">Deny Request</div>
+              <div class="modal-text">
+                <h3>Are you sure you want to deny the request?</h3>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="hideDenyModal()">
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-delete">Deny Request</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </ng-template>
+      <!-- Deny Modal ends -->
+
+    </tr>
+  </table>
+  <div *ngIf="count == 0" class="nodata">
+    <p>No Data Found</p>
+  </div>
+  <div *ngIf="count > 0" class="text-right">
+    <p class="page-text">
+      Showing {{ getShownEntriesRange() }} of {{ count }} entries
+    </p>
+    <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+  </div>
+</div>

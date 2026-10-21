@@ -1,0 +1,248 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~ngx-toastr/toastr.css';
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap");
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+body,
+button {
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.val-error {
+    display: flex;
+    left: 4%;
+    position: absolute;
+    top: 70%;
+    height: 17px;
+    background-color: #E72E00;
+    color: #ffffff;
+    font-family: Montserrat, sans-serif;
+    font-size: 9px;
+}
+
+input.ng-invalid.ng-touched {
+    border: 2px solid #E72E00;
+}
+
+/* .toast-success {
+    top: 80%;
+    background-color: #4caf50;
+    color: white;
+    font-size: 20px;
+    width: 100px;
+    position:fixed;
+}
+
+.toast-error {
+    background-color: #f44336;
+    color: white;
+} */
+
+.mat-drawer {
+    overflow: hidden !important;
+}
+
+.mat-list-item-content {
+    padding: 0 40px !important;
+}
+
+.modal-dialog {
+    position: absolute;
+    top: 60%;
+    left: 30%;
+    transform: translate(0, -50%) !important;
+    -ms-transform: translate(0, -50%) !important;
+    -webkit-transform: translate(0, -50%) !important;
+    width: 90%;
+    height: 90%;
+}
+
+.modal-content {
+    border-radius: 15px;
+    outline: 0;
+}
+
+.modal-body {
+    padding: 0;
+}
+
+.modal-title {
+    padding: 30px 0 10px 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #444444;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.ngx-foreground-spinner.center-center {
+    left: 60% !important;
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+    .mat-list-item-content {
+        padding: 0 20px !important;
+    }
+
+    .mat-list-item-content h3 {
+        font-size: 12px !important;
+    }
+
+    .modal-dialog {
+        position: absolute;
+        top: 60%;
+        left: 30%;
+        transform: translate(0, -50%) !important;
+        -ms-transform: translate(0, -50%) !important;
+        -webkit-transform: translate(0, -50%) !important;
+        width: 90%;
+        height: 90%;
+    }
+
+    .modal-title {
+        padding: 30px 0 10px 0;
+        font-size: 18px;
+        font-weight: 600;
+        color: #444444;
+        font-family: 'Montserrat', sans-serif;
+    }
+}
+
+// ::ng-deep .ng-select {
+//     box-shadow: none !important;
+// }
+
+// ::ng-deep .ng-select.ng-select-single .ng-select-container {
+//     box-shadow: none !important;
+//     width: 100%;
+// }
+
+// ::ng-deep .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+//     box-shadow: none !important;
+// }
+
+.common-btn {
+    width: 160px;
+    height: 45px;
+    background-color: #8FC36A !important;
+    border: none;
+    border-radius: 10px !important;
+    color: #ffffff !important;
+    font-family: 'Montserrat', sans-serif;
+    margin-right: 20px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.common-delete-btn {
+    width: 124px;
+    height: 45px;
+    background-color: #E72E00;
+    border: none;
+    border-radius: 10px !important;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    margin-right: 30px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+// .notification-btn {
+//     position: relative;
+//     padding: 10px 20px;
+//     font-size: 16px;
+//     color: #fff;
+//     border: none;
+//     border-radius: 5px;
+//     cursor: pointer;
+// }
+
+// .notification-badge {
+//     position: absolute;
+//     top: -9px;
+//     right: -6px;
+//     background-color: #e74c3c;
+//     color: #fff;
+//     border-radius: 50%;
+//     padding: 4px 8px;
+//     font-size: 12px;
+//     font-weight: bold;
+//     /* width: 15%; */
+//     /* height: 53%; */
+//     z-index: 1;
+//     width: 30px;
+//     height: 29px;
+// }
+.notification-btn {
+    position: relative;
+}
+
+.notification-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+@media only screen and (max-device-width: 1120px) {
+    .common-btn {
+        width: 110px;
+        height: 45px;
+        background-color: #8FC36A;
+        border: none;
+        border-radius: 10px;
+        color: #ffffff;
+        font-family: 'Montserrat', sans-serif;
+        margin-right: 20px;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    // .notification-badge {
+    //     width: 18%;
+    //     font-size: 12px;
+    //     padding: 0px 5px;
+    //     height: 44%;
+    // }
+}
+
+mat-drawer.mat-drawer.ng-tns-c95-0.ng-trigger.ng-trigger-transform.mat-drawer-side.mat-drawer-opened.ng-star-inserted {
+    overflow-y: scroll !important;
+}
+
+mat-drawer.mat-drawer.ng-tns-c95-0.ng-trigger.ng-trigger-transform.mat-drawer-side.mat-drawer-opened.ng-star-inserted::-webkit-scrollbar {
+    display: none !important;
+}
